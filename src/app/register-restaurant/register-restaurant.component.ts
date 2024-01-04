@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Address } from '../shared/address';
+import { RestaurantForCreation } from '../shared/restaurant-for-creation';
+import { OpeningHours } from '../shared/opening-hours';
+import { ClosingDay } from '../shared/closing-day';
 
 @Component({
   selector: 'wea5-register-restaurant',
@@ -8,20 +12,34 @@ import { Component } from '@angular/core';
 })
 export class RegisterRestaurantComponent {
 
-  latitude: number = 0;
-  longitude: number = 0;
+  address: Address = new Address();
+  restaurant: RestaurantForCreation = new RestaurantForCreation();
+  openingHours: OpeningHours[] = [];
+  closingDays: ClosingDay[] = [];
 
   getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
+        this.address.latitude = position.coords.latitude;
+        this.address.longitude = position.coords.longitude;
       }, (error) => {
         console.error('Error getting location', error);
       });
     } else {
       alert("Geolocation is not supported by this browser. Please use a different browser or enter the location manually. ");
     }
+  }
+
+  onImageFileSelected(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files[0]) {
+      this.restaurant.imageFile = inputElement.files[0];
+    }
+  }
+
+  register() {
+    const test = (this.restaurant, this.address)
+    console.log(JSON.stringify(this.restaurant));
   }
 
 }

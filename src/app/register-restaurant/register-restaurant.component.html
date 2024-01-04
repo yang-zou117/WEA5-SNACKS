@@ -14,15 +14,18 @@
                 <h4 class="text-left mt-3 mb-3"><u>General information</u></h4>
                 <div class="mb-3">
                     <label for="restaurantName" class="form-label">Restaurant name</label>
-                    <input class="form-control" id="restaurantName" name="restaurantName" value="">
+                    <input class="form-control" id="restaurantName" name="restaurantName" 
+                           [(ngModel)]="restaurant.restaurantName">
                 </div>
                 <div class="mb-4">
                     <label for="webhookUrl" class="form-label">Webhook URL</label>
-                    <input type="password" class="form-control" id="webhookUrl" name="webhookUrl">
+                    <input type="password" class="form-control" id="webhookUrl" name="webhookUrl" 
+                           [(ngModel)]="restaurant.webhookUrl">
                 </div>
                 <div class="mb-4">
                     <label for="titleImage" class="form-label">Title image (Only Image Files Allowed)</label>
-                    <input type="file" class="form-control" id="titleImage" name="titleImage" accept="image/*">
+                    <input type="file" class="form-control" id="titleImage" name="titleImage" accept="image/*"
+                           (change)="onImageFileSelected($event)">
                 </div>
 
                 <!-- section for address -->
@@ -30,33 +33,37 @@
 
                 <div class="mb-4">
                     <label for="street" class="form-label">Street</label>
-                    <input type="text" class="form-control" id="street" name="street">
+                    <input type="text" class="form-control" id="street" name="street"
+                           [(ngModel)]="address.street">
                 </div>
 
                 <div class="mb-4">
                     <label for="streetNumber" class="form-label">House Number</label>
-                    <input type="number" class="form-control" id="streetNumber" name="streetNumber">
+                    <input type="number" class="form-control" id="streetNumber" name="streetNumber"
+                           [(ngModel)]="address.streetNumber">
                 </div>
 
                 <div class="mb-4">
                     <label for="city" class="form-label">City</label>
-                    <input type="text" class="form-control" id="city" name="city">
+                    <input type="text" class="form-control" id="city" name="city"
+                           [(ngModel)]="address.city">
                 </div>
 
                 <div class="mb-4">
                     <label for="zipCode" class="form-label">Zip Code</label>
-                    <input type="text" class="form-control" id="zipCode" name="zipCode">
+                    <input type="text" class="form-control" id="zipCode" name="zipCode"
+                           [(ngModel)]="address.zipCode">
                 </div>
 
                 <div class="mb-4">
                     <label for="latitude" class="form-label">Latitude</label>
                     <input type="number" step="any" class ="form-control" id="latitude" name="latitude"
-                           [(ngModel)]="latitude" min="-90.0" max="90.0">
+                           [(ngModel)]="address.latitude" min="-90.0" max="90.0">
                 </div>
                 <div class="mb-4">
                     <label for="longitude" class="form-label">Longitude</label>
                     <input type="number" step="any" class ="form-control" id="longitude" name="longitude"
-                           [(ngModel)]="longitude" min="-180.0" max="180.0">
+                           [(ngModel)]="address.longitude" min="-180.0" max="180.0">
                 </div>
                 <button (click)="getLocation()">Get My Location</button>
                 
@@ -75,7 +82,7 @@
                 </div>
 
                 <div class="text-center text-lg-start mt-3 pt-2">
-                    <button class="btn btn-primary w-100">Register</button>
+                    <button class="btn btn-primary w-100" (click)="register()">Register</button>
                 </div>
                 <!-- TODO end form -->
             </div>
