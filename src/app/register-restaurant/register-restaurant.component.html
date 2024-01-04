@@ -1,1 +1,84 @@
-<p>register-restaurant works!</p>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-7">
+
+        <!-- TODO: show error messages -->
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center"><b>Register new restaurant</b></h2>
+            </div>
+            <div class="card-body">
+                <!-- begin form TODO -->
+
+                <!-- section for general information -->
+                <h4 class="text-left mt-3 mb-3"><u>General information</u></h4>
+                <div class="mb-3">
+                    <label for="restaurantName" class="form-label">Restaurant name</label>
+                    <input class="form-control" id="restaurantName" name="restaurantName" value="">
+                </div>
+                <div class="mb-4">
+                    <label for="webhookUrl" class="form-label">Webhook URL</label>
+                    <input type="password" class="form-control" id="webhookUrl" name="webhookUrl">
+                </div>
+                <div class="mb-4">
+                    <label for="titleImage" class="form-label">Title image (Only Image Files Allowed)</label>
+                    <input type="file" class="form-control" id="titleImage" name="titleImage" accept="image/*">
+                </div>
+
+                <!-- section for address -->
+                <h4 class="text-left mt-5 mb-3"><u>Address</u></h4>
+
+                <div class="mb-4">
+                    <label for="street" class="form-label">Street</label>
+                    <input type="text" class="form-control" id="street" name="street">
+                </div>
+
+                <div class="mb-4">
+                    <label for="streetNumber" class="form-label">House Number</label>
+                    <input type="number" class="form-control" id="streetNumber" name="streetNumber">
+                </div>
+
+                <div class="mb-4">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" id="city" name="city">
+                </div>
+
+                <div class="mb-4">
+                    <label for="zipCode" class="form-label">Zip Code</label>
+                    <input type="text" class="form-control" id="zipCode" name="zipCode">
+                </div>
+
+                <div class="mb-4">
+                    <label for="gpsLatitude" class="form-label">GPS Latitude</label>
+                    <input type="number" step="0.0001" class="form-control" id="gpsLatitude" name="gpsLatitude" 
+                           min="-90.0" max="90.0">
+                </div>
+
+                <div class="mb-4">
+                    <label for="gpsLongitude" class="form-label">GPS Longitude</label>
+                    <input type="number" step="0.0001" class="form-control" id="gpsLongitude" name="gpsLongitude" 
+                           min="-180.0" max="180.0">
+                </div>
+                
+                <!-- section for opening hours -->
+                <h4 class="text-left mt-5 mb-3"><u>Opening hours</u></h4>
+
+                <!-- section for closing days -->
+                <h4 class="text-left mt-5 mb-5"><u>Closing days</u></h4>
+
+                <!-- checkbox for agree terms -->
+                <div class="mb-3 text-center">
+                    <label for="registerCheck" class="form-label">I have read and agreed to 
+                        the terms and conditions &nbsp;</label>
+                    <input type="checkbox" class="form-check-input" id="registerCheck" 
+                    name="registerCheck">
+                </div>
+
+                <div class="text-center text-lg-start mt-3 pt-2">
+                    <button class="btn btn-primary w-100">Register</button>
+                </div>
+                <!-- TODO end form -->
+            </div>
+        </div>
+    </div>
+</div>
