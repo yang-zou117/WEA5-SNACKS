@@ -15,7 +15,9 @@ export class RegisterRestaurantComponent {
   address: Address = new Address();
   restaurant: RestaurantForCreation = new RestaurantForCreation();
   openingHours: OpeningHours[] = [];
+  openingHoursSize: number = 1; 
   closingDays: ClosingDay[] = [];
+  closingDaysSize: number = 1;
 
   getLocation() {
     if (navigator.geolocation) {
@@ -26,7 +28,7 @@ export class RegisterRestaurantComponent {
         console.error('Error getting location', error);
       });
     } else {
-      alert("Geolocation is not supported by this browser. Please use a different browser or enter the location manually. ");
+      alert("Geolocation is not supported by this browser. Please use a different browser or enter the location manually.");
     }
   }
 

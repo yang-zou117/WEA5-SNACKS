@@ -6,12 +6,16 @@ import { AppComponent } from './app.component';
 import { RegisterRestaurantComponent } from './register-restaurant/register-restaurant.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { MyCartComponent } from './my-cart/my-cart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterRestaurantComponent,
-    HomeComponent
+    HomeComponent,
+    MyOrdersComponent,
+    MyCartComponent
   ],
   imports: [
     BrowserModule,
