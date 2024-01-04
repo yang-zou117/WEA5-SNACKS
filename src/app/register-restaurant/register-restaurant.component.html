@@ -49,16 +49,16 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="gpsLatitude" class="form-label">GPS Latitude</label>
-                    <input type="number" step="0.0001" class="form-control" id="gpsLatitude" name="gpsLatitude" 
-                           min="-90.0" max="90.0">
+                    <label for="latitude" class="form-label">Latitude</label>
+                    <input type="number" step="any" class ="form-control" id="latitude" name="latitude"
+                           [(ngModel)]="latitude" min="-90.0" max="90.0">
                 </div>
-
                 <div class="mb-4">
-                    <label for="gpsLongitude" class="form-label">GPS Longitude</label>
-                    <input type="number" step="0.0001" class="form-control" id="gpsLongitude" name="gpsLongitude" 
-                           min="-180.0" max="180.0">
+                    <label for="longitude" class="form-label">Longitude</label>
+                    <input type="number" step="any" class ="form-control" id="longitude" name="longitude"
+                           [(ngModel)]="longitude" min="-180.0" max="180.0">
                 </div>
+                <button (click)="getLocation()">Get My Location</button>
                 
                 <!-- section for opening hours -->
                 <h4 class="text-left mt-5 mb-3"><u>Opening hours</u></h4>
