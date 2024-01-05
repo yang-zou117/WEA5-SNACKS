@@ -19,6 +19,11 @@ export class RegisterRestaurantComponent {
   closingDays: ClosingDay[] = [];
   closingDaysSize: number = 1;
 
+  constructor() { 
+    this.openingHours.push(new OpeningHours());
+    this.closingDays.push(new ClosingDay());
+  }
+
   getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -37,6 +42,16 @@ export class RegisterRestaurantComponent {
     if (inputElement.files && inputElement.files[0]) {
       this.restaurant.imageFile = inputElement.files[0];
     }
+  }
+
+  addOpeningHours() {
+    this.openingHoursSize++;
+    this.openingHours.push(new OpeningHours());
+  }
+
+  addClosingDay() {
+    this.closingDaysSize++;
+    this.closingDays.push(new ClosingDay());
   }
 
   register() {

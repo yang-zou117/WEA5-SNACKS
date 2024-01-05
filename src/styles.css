@@ -30,5 +30,19 @@
     color: var(--main-blue);
 }
 
+.content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
 
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 30px 10px;
+    font-size: 14px;
+    margin-top: 60px; /* Aligns the footer at the bottom */
+}
 

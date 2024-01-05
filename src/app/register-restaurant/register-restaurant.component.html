@@ -69,12 +69,52 @@
                 
                 <!-- section for opening hours -->
                 <h4 class="text-left mt-5 mb-3"><u>Opening Hours</u></h4>
+                <div class="mb-4" *ngFor="let entry of openingHours; let i = index">
+                    <div class="row">
+                        <div class="col">
+                          <label>Start Time:</label>
+                          <input type="time" name="startTime" class="form-control" [(ngModel)]="openingHours[i].startTime">
+                        </div>
+                        <div class="col">
+                          <label>End Time:</label>
+                          <input type="time" name="endTime" class="form-control" [(ngModel)]="openingHours[i].endTime">
+                        </div>
+                        <div class="col">
+                          <label>Week Day:</label>
+                          <select name="weekDay" class="form-control" [(ngModel)]="openingHours[i].weekDay">
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                          </select>
+                        </div>
+                      </div>                      
+                </div>
+                <button type="button" (click)="addOpeningHours()">Add Opening Hours</button>
 
                 <!-- section for closing days -->
-                <h4 class="text-left mt-5 mb-5"><u>Closing Days</u></h4>
+                <h4 class="text-left mt-5 mb-3"><u>Closing Days</u></h4>
+                <div class="mb-4" *ngFor="let entry of closingDays; let i = index">
+                    <div class="col-md-7">
+                        <label>Week Day:</label>
+                        <select name="weekDay" class="form-control" [(ngModel)]="closingDays[i].weekDay">
+                          <option value="Monday">Monday</option>
+                          <option value="Tuesday">Tuesday</option>
+                          <option value="Wednesday">Wednesday</option>
+                          <option value="Thursday">Thursday</option>
+                          <option value="Friday">Friday</option>
+                          <option value="Saturday">Saturday</option>
+                          <option value="Sunday">Sunday</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" (click)="addClosingDay()">Add Closing Day</button>
 
                 <!-- checkbox for agree terms -->
-                <div class="mb-3 text-center">
+                <div class="mb-3 mt-5 text-center">
                     <label for="registerCheck" class="form-label">I have read and agreed to 
                         the terms and conditions &nbsp;</label>
                     <input type="checkbox" class="form-check-input" id="registerCheck" 
