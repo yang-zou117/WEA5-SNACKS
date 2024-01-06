@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { RegisterRestaurantComponent } from './register-restaurant/register-restaurant.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
+import { LoginComponent } from './login/login.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { MyCartComponent } from './my-cart/my-cart.component';
 
 const routes: Routes = [
 {
@@ -19,19 +23,19 @@ const routes: Routes = [
 }, 
 {
   path: 'search-results',
-  redirectTo: 'searchResults',
+  component: SearchResultsComponent
 }, 
 {
   path: 'login',
-  redirectTo: 'login'
+  component: LoginComponent
 }, 
 {
   path: 'my-orders',
-  redirectTo: 'myOrders'
+  component: MyOrdersComponent
 }, 
 {
   path: 'my-cart',
-  redirectTo: 'myCart'
+  component: MyCartComponent
 }
 ];
 

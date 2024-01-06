@@ -3,6 +3,7 @@
 
         <div *ngIf="apiKey" class="ui positive message mb-3">
             Restaurant successfully registered. <br>
+            Please save the following information for future use: <br>
             Your restaurantId is: {{ restaurantId }} <br>
             Your API key is: {{ apiKey }}
         </div>
@@ -97,7 +98,7 @@
                 
                 <!-- section for opening hours -->
                 <h4 class="text-left mt-5 mb-3"><u>Opening Hours</u></h4>
-                <div class="mb-4" *ngFor="let entry of openingHours">
+                <div class="mb-4" *ngFor="let entry of openingHours; let i = index; ">
                     <div class="row">
                         <div class="col">
                           <label for="startTime">Start Time: *</label>
@@ -107,12 +108,23 @@
                         <div class="col">
                           <label for="endTime">End Time: *</label>
                           <input type="time" name="endTime" class="form-control" id="endTime" 
-                                 [(ngModel)]="entry.endTime" required>
+                                 [(ngModel)]="entry.endTime" 
+                                 (change) = "onSelectEndTime(i, $event)"
+                                 required>
                         </div>
                         <div class="col">
                           <label for="weekDayOpeningHours">Week Day: *</label>
-                          <select name="weekDayOpeningHours" class="form-control" [(ngModel)]="entry.weekDay" id="weekDayOpeningHours" required>
-                            <option *ngFor="let option of weekdays" [value]="option">{{ option }}</option>
+                          <select name="weekDayOpeningHours" class="form-control" 
+                                  [value]="openingHours[i].weekDay"
+                                  (change)="onSelectWeekDay(i, $event)"       
+                                  id="weekDayOpeningHours" required>
+                            <option value="Monday" [selected]="true">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thurday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
                           </select>
                         </div>
                     </div>
@@ -135,7 +147,7 @@
                 </div>
 
                 <div class="text-center text-lg-start mt-3 pt-2">
-                    <button class="btn btn-primary w-100" type="submit" [disabled]="!myForm.form.valid">Register</button>
+                    <button class="btn btn-primary w-100" type="submit" [disabled]="(!myForm.form.valid) && (!isButtonDisabled)">Register</button>
                 </div>
 
             </form>

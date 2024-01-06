@@ -1,16 +1,21 @@
 
 <div class="container mb-5 mt-5">
     <h2 style="font-weight: bold;">Find restaurants in your proximity</h2>
-
+    <form>
     <div class="mb-3 col-md-6">
 
-        <div class="mt-4 mb-2">
-            <label for="shouldBeOpen" class="form-label">Should be open now: </label>
-            <span style="margin-left: 10px;"></span>
-            <input type="radio" name="shouldBeOpen" [value]="true" [(ngModel)]="shouldBeOpen"> Yes 
-            <input type="radio" name="shouldBeOpen" [value]="false" [(ngModel)]="shouldBeOpen"> No
+        <div class="mt-4 mb-3">
+            Should be open now: &nbsp; &nbsp;
+            <label for="yesOption">
+            <input type="radio" id="yesOption" name="shouldBeOpen" [value]="true" [(ngModel)]="shouldBeOpen">
+            Yes &nbsp;
+            </label>
+            <label for="noOption">
+            <input type="radio" id="noOption" name="shouldBeOpen" [value]="false" [(ngModel)]="shouldBeOpen">
+            No
+            </label>
         </div>
-
+          
         <div class="mb-4">
             <label for="maxDistance" class="form-label">Maximum distance (in km): </label>
             <input type="number" class ="form-control" id="maxDistance" name="maxDistance"
@@ -29,8 +34,8 @@
         </div>
         <button (click)="getLocation()">Get My Location</button>
     </div>
-    <button class="btn btn-primary mt-4 btn-lg search-btn" (onclick)="search()" >
+    <button class="btn btn-primary mt-4 btn-lg search-btn" (click)="search()" type="submit" >
         Search <i class="bi bi-arrow-right"></i>
     </button>
-
+    </form>
 </div>

@@ -20,10 +20,28 @@ export class SnacksServiceService {
                        openingHours: OpeningHours[], 
                        closingDays: ClosingDay[]): Observable<any> {
         
+        // add seconds to opening hours to fit the format of the server
         for(let i = 0; i < openingHours.length; i++) {
             openingHours[i].startTime = openingHours[i].startTime + ":00";
             openingHours[i].endTime = openingHours[i].endTime + ":00";
         }
+
+        // compute values for closing days 
+        // better approach is to use triggers in the database but during the implementation of Backend, it was not done
+        const weekdays: string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        for(let weekDay of weekdays) {
+            let found = false;
+            for(let entry of openingHours) {
+            if(entry.weekDay === weekDay) {
+                found = true;
+                break;
+            }
+            }
+            if(!found) {
+                closingDays.push(new ClosingDay(weekDay));
+            }
+        }
+  
   
         let restaurantObject: any = {};
         if(restaurant.imageData !== undefined && restaurant.fileType !== undefined) {
@@ -55,6 +73,12 @@ export class SnacksServiceService {
         return this.http.post(`${environment.server}/restaurant/register`, 
                               JSON.stringify(registerObject), 
                               {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}});
+    }
+
+    getRestaurantsInProximity(maxDistance: number, latitude: number, 
+                              longitude: number, shouldBeOpen: boolean): Observable<any> {
+        return this.http.get(`${environment.server}/order/findRestaurants??maxDistance=${maxDistance}&latitude=${latitude}&longitude=${longitude}&shouldBeOpen=${shouldBeOpen}`, 
+                             {headers: {'Accept': 'application/json'}});
     }
 
     

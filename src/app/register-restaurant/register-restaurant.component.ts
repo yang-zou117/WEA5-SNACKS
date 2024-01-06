@@ -23,10 +23,10 @@ export class RegisterRestaurantComponent {
   openingHours: OpeningHours[] = [];
   closingDays: ClosingDay[] = [];
 
-  weekdays: string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
   apiKey: string | undefined; // api key for new registered restaurant
   restaurantId: number | undefined; // id of new registered restaurant
+
+  isButtonDisabled = false; 
 
   ngOnInit() {
     this.myForm.statusChanges?.subscribe(() => this.updateErrorMessages());
@@ -53,13 +53,13 @@ export class RegisterRestaurantComponent {
     this.address = new Address();
     this.openingHours = [];
     this.closingDays = [];
-    this.openingHours.push(new OpeningHours());
+    this.openingHours.push(new OpeningHours(0, '', '00:00', '00:00'));
     this.myForm.resetForm();
     this.updateErrorMessages();
   }
 
   constructor(private snacksService: SnacksServiceService) { 
-    this.openingHours.push(new OpeningHours());
+    this.openingHours.push(new OpeningHours(0, '', '00:00', '00:00'));
   }
 
   getLocation() {
@@ -90,7 +90,7 @@ export class RegisterRestaurantComponent {
   }
 
   addOpeningHours() {
-    this.openingHours.push(new OpeningHours());
+    this.openingHours.push(new OpeningHours(0, '', '00:00', '00:00'));
   }
 
   popOpeningHours() {
@@ -105,6 +105,21 @@ export class RegisterRestaurantComponent {
     this.closingDays.pop();
   }
 
+  onSelectWeekDay(index: number, event: Event): void {
+    const value = (event.target as HTMLSelectElement).value;
+    this.openingHours[index].weekDay = value;
+  }
+
+  onSelectEndTime(index: number, event: Event): void {
+    // check if end time is after start time
+    let startTime = this.openingHours[index].startTime;
+    let endTime = (event.target as HTMLSelectElement).value;
+    if(startTime !== undefined && startTime > endTime) {
+      alert("End time must be after start time!");
+      return;
+    }
+  }
+
   register(event: Event) {
     event.preventDefault();
     if(!this.myForm.form.valid) { 
@@ -112,21 +127,7 @@ export class RegisterRestaurantComponent {
       return; 
     }
 
-    // compute values for closing days 
-    // better approach is to use triggers in the database but during the implementation of Backend, it was not done
-    for(let weekDay of this.weekdays) {
-      let found = false;
-      for(let entry of this.openingHours) {
-        if(entry.weekDay === weekDay) {
-          found = true;
-          break;
-        }
-      }
-      if(!found) {
-        this.closingDays.push(new ClosingDay(weekDay));
-      }
-    }
-
+    this.isButtonDisabled = true;
     this.snacksService.registerRestaurant(
       this.restaurant, this.address, 
       this.openingHours, this.closingDays).subscribe(
@@ -135,6 +136,7 @@ export class RegisterRestaurantComponent {
       this.apiKey = res['apiKeyValue'];
       this.restaurantId = res['restaurantId'];
       this.resetData();
+      this.isButtonDisabled = false;
     }); 
 
   }
