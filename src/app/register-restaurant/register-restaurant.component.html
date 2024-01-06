@@ -1,8 +1,6 @@
 <div class="row justify-content-center mt-5">
     <div class="col-md-7">
 
-        <!-- TODO: show error messages -->
-
         <div class="card">
             <div class="card-header">
                 <h2 class="text-center"><b>Register new restaurant</b></h2>
@@ -13,14 +11,20 @@
                 <!-- section for general information -->
                 <h4 class="text-left mt-3 mb-3"><u>General information</u></h4>
                 <div class="mb-3">
-                    <label for="restaurantName" class="form-label">Restaurant name</label>
+                    <label for="restaurantName" class="form-label">Restaurant name *</label>
                     <input class="form-control" id="restaurantName" name="restaurantName" 
                            [(ngModel)]="restaurant.restaurantName" required>
+                    <div *ngIf="errors['restaurantName']" class="ui negative message">
+                         {{ errors['restaurantName'] }}
+                    </div>
                 </div>
                 <div class="mb-4">
-                    <label for="webhookUrl" class="form-label">Webhook URL</label>
-                    <input type="password" class="form-control" id="webhookUrl" name="webhookUrl" 
+                    <label for="webhookUrl" class="form-label">Webhook URL *</label>
+                    <input type="text" class="form-control" id="webhookUrl" name="webhookUrl" 
                            [(ngModel)]="restaurant.webhookUrl" required>
+                    <div *ngIf="errors['webhookUrl']" class="ui negative message">
+                        {{ errors['webhookUrl'] }}
+                    </div>
                 </div>
                 <div class="mb-4">
                     <label for="titleImage" class="form-label">Title image (Only Image Files Allowed)</label>
@@ -32,99 +36,129 @@
                 <h4 class="text-left mt-5 mb-3"><u>Address</u></h4>
 
                 <div class="mb-4">
-                    <label for="street" class="form-label">Street</label>
+                    <label for="street" class="form-label">Street *</label>
                     <input type="text" class="form-control" id="street" name="street"
                            [(ngModel)]="address.street" required>
+                    <div *ngIf="errors['street']" class="ui negative message">
+                        {{ errors['street'] }}
+                    </div>
                 </div>
 
                 <div class="mb-4">
-                    <label for="streetNumber" class="form-label">House Number</label>
+                    <label for="streetNumber" class="form-label">House Number *</label>
                     <input type="number" class="form-control" id="streetNumber" name="streetNumber"
                            [(ngModel)]="address.streetNumber" required>
+                    <div *ngIf="errors['streetNumber']" class="ui negative message">
+                        {{ errors['streetNumber'] }}
+                    </div>
                 </div>
 
                 <div class="mb-4">
-                    <label for="city" class="form-label">City</label>
+                    <label for="city" class="form-label">City *</label>
                     <input type="text" class="form-control" id="city" name="city"
                            [(ngModel)]="address.city" required>
+                    <div *ngIf="errors['city']" class="ui negative message">
+                        {{ errors['city'] }}
+                    </div>
                 </div>
 
                 <div class="mb-4">
-                    <label for="zipCode" class="form-label">Zip Code</label>
+                    <label for="zipCode" class="form-label">Zip Code *</label>
                     <input type="text" class="form-control" id="zipCode" name="zipCode"
                            [(ngModel)]="address.zipCode" required>
+                    <div *ngIf="errors['zipCode']" class="ui negative message">
+                        {{ errors['zipCode'] }}
+                    </div>
                 </div>
 
                 <div class="mb-4">
-                    <label for="latitude" class="form-label">Latitude</label>
+                    <label for="latitude" class="form-label">Latitude *</label>
                     <input type="number" step="any" class ="form-control" id="latitude" name="latitude"
                            [(ngModel)]="address.latitude" min="-90.0" max="90.0" required>
+                    <div *ngIf="errors['latitude']" class="ui negative message">
+                        {{ errors['latitude'] }}
+                    </div>
                 </div>
                 <div class="mb-4">
-                    <label for="longitude" class="form-label">Longitude</label>
+                    <label for="longitude" class="form-label">Longitude *</label>
                     <input type="number" step="any" class ="form-control" id="longitude" name="longitude"
                            [(ngModel)]="address.longitude" min="-180.0" max="180.0" required>
+                    <div *ngIf="errors['longitude']" class="ui negative message">
+                        {{ errors['longitude'] }}
+                    </div>
                 </div>
                 <button (click)="getLocation()">Get My Location</button>
                 
                 <!-- section for opening hours -->
                 <h4 class="text-left mt-5 mb-3"><u>Opening Hours</u></h4>
-                <div class="mb-4" *ngFor="let entry of openingHours; let i = index">
+                <div class="mb-4" *ngFor="let entry of openingHours">
                     <div class="row">
                         <div class="col">
-                          <label>Start Time:</label>
-                          <input type="time" name="startTime" class="form-control" 
-                                 [(ngModel)]="openingHours[i].startTime" required>
+                          <label for="startTime">Start Time: *</label>
+                          <input type="time" name="startTime" class="form-control" id="startTime"
+                                 [(ngModel)]="entry.startTime" required>
                         </div>
                         <div class="col">
-                          <label>End Time:</label>
-                          <input type="time" name="endTime" class="form-control" 
-                                 [(ngModel)]="openingHours[i].endTime" required>
+                          <label for="endTime">End Time: *</label>
+                          <input type="time" name="endTime" class="form-control" id="endTime" 
+                                 [(ngModel)]="entry.endTime" required>
                         </div>
                         <div class="col">
-                          <label>Week Day:</label>
-                          <select name="weekDayOpeningHours" class="form-control" [(ngModel)]="openingHours[i].weekDay" required>
-                            <option value="Monday">Monday</option>
-                            <option value="Tuesday">Tuesday</option>
-                            <option value="Wednesday">Wednesday</option>
-                            <option value="Thursday">Thursday</option>
-                            <option value="Friday">Friday</option>
-                            <option value="Saturday">Saturday</option>
-                            <option value="Sunday">Sunday</option>
+                          <label for="weekDayOpeningHours">Week Day: *</label>
+                          <select name="weekDayOpeningHours" class="form-control" [(ngModel)]="entry.weekDay" id="weekDayOpeningHours" required>
+                            <option *ngFor="let option of weekdays" [value]="option">{{ option }}</option>
                           </select>
                         </div>
-                      </div>                      
+                    </div>
+                    <div *ngIf="errors['startTime']" class="ui negative message">
+                        {{ errors['startTime'] }}
+                    </div>
+                    <div *ngIf="errors['endTime']" class="ui negative message">
+                        {{ errors['endTime'] }}
+                    </div>
+                    <div *ngIf="errors['weekDayOpeningHours']" class="ui negative message">
+                        {{ errors['weekDayOpeningHours'] }}
+                    </div>
                 </div>
                 <button type="button" (click)="addOpeningHours()">Add Opening Hours</button>
+                <span style="margin-left: 10px;"></span>
+                <button type="button" (click)="popOpeningHours()">Remove Opening Hours</button>
 
                 <!-- section for closing days -->
                 <h4 class="text-left mt-5 mb-3"><u>Closing Days</u></h4>
                 <div class="mb-4" *ngFor="let entry of closingDays; let i = index">
                     <div class="col-md-7">
-                        <label>Week Day:</label>
-                        <select name="weekDayClosingDay" class="form-control" [(ngModel)]="closingDays[i].weekDay" required>
-                          <option value="Monday">Monday</option>
-                          <option value="Tuesday">Tuesday</option>
-                          <option value="Wednesday">Wednesday</option>
-                          <option value="Thursday">Thursday</option>
-                          <option value="Friday">Friday</option>
-                          <option value="Saturday">Saturday</option>
-                          <option value="Sunday">Sunday</option>
+                        <label for="weekDayClosingDay">Week Day: *</label>
+                        <select name="weekDayClosingDay" id="weekDayClosingDay" class="form-control" [(ngModel)]="entry.weekDay" [value]="entry.weekDay" required>
+                            <option *ngFor="let option of weekdays" [value]="option">{{ option }}</option>
                         </select>
+
+                        <div *ngIf="errors['weekDayClosingDay']" class="ui negative message">
+                            {{ errors['weekDayClosingDay'] }}
+                        </div>
                     </div>
                 </div>
                 <button type="button" (click)="addClosingDay()">Add Closing Day</button>
+                <span style="margin-left: 10px;"></span>
+                <button type="button" (click)="popClosingDay()">Remove Closing Day</button>
+
+                <div class="mb-3 mt-5">
+                    * Required fields
+                </div>
 
                 <!-- checkbox for agree terms -->
                 <div class="mb-3 mt-5 text-center">
-                    <label for="registerCheck" class="form-label">I have read and agreed to 
-                        the terms and conditions &nbsp;</label>
-                    <input type="checkbox" class="form-check-input" id="registerCheck" 
-                    name="registerCheck">
+                    <label for="checkTermsAccepted" class="form-label">I have read and agreed to 
+                        the terms and conditions * &nbsp;</label>
+                    <input type="checkbox" class="form-check-input form-control" id="checkTermsAccepted" style="display: inline-block;"
+                           name="checkTermsAccepted" required>
+                    <div *ngIf="errors['checkTermsAccepted']" class="ui negative message">
+                        {{ errors['checkTermsAccepted'] }}
+                    </div> 
                 </div>
 
                 <div class="text-center text-lg-start mt-3 pt-2">
-                    <button class="btn btn-primary w-100" type="submit">Register</button>
+                    <button class="btn btn-primary w-100" type="submit" [disabled]="!myForm.form.valid">Register</button>
                 </div>
 
             </form>
