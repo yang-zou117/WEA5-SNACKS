@@ -31,7 +31,9 @@ export class HomeComponent {
   }
 
   search() {
-   
+    // In angular when i get from the server a json 0bject like: 
+    // [ { "restaurant": { "restaurantId": 1, "restaurantName": "Hello}, "distance: 112,7"} ] 
+    // how should i convert this to appropriate objects of classes
   }
 
 
