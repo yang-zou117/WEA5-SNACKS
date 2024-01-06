@@ -8,19 +8,19 @@
                 <h2 class="text-center"><b>Register new restaurant</b></h2>
             </div>
             <div class="card-body">
-                <!-- begin form TODO -->
 
+                <form #myForm="ngForm" (ngSubmit)="register()">
                 <!-- section for general information -->
                 <h4 class="text-left mt-3 mb-3"><u>General information</u></h4>
                 <div class="mb-3">
                     <label for="restaurantName" class="form-label">Restaurant name</label>
                     <input class="form-control" id="restaurantName" name="restaurantName" 
-                           [(ngModel)]="restaurant.restaurantName">
+                           [(ngModel)]="restaurant.restaurantName" required>
                 </div>
                 <div class="mb-4">
                     <label for="webhookUrl" class="form-label">Webhook URL</label>
                     <input type="password" class="form-control" id="webhookUrl" name="webhookUrl" 
-                           [(ngModel)]="restaurant.webhookUrl">
+                           [(ngModel)]="restaurant.webhookUrl" required>
                 </div>
                 <div class="mb-4">
                     <label for="titleImage" class="form-label">Title image (Only Image Files Allowed)</label>
@@ -34,36 +34,36 @@
                 <div class="mb-4">
                     <label for="street" class="form-label">Street</label>
                     <input type="text" class="form-control" id="street" name="street"
-                           [(ngModel)]="address.street">
+                           [(ngModel)]="address.street" required>
                 </div>
 
                 <div class="mb-4">
                     <label for="streetNumber" class="form-label">House Number</label>
                     <input type="number" class="form-control" id="streetNumber" name="streetNumber"
-                           [(ngModel)]="address.streetNumber">
+                           [(ngModel)]="address.streetNumber" required>
                 </div>
 
                 <div class="mb-4">
                     <label for="city" class="form-label">City</label>
                     <input type="text" class="form-control" id="city" name="city"
-                           [(ngModel)]="address.city">
+                           [(ngModel)]="address.city" required>
                 </div>
 
                 <div class="mb-4">
                     <label for="zipCode" class="form-label">Zip Code</label>
                     <input type="text" class="form-control" id="zipCode" name="zipCode"
-                           [(ngModel)]="address.zipCode">
+                           [(ngModel)]="address.zipCode" required>
                 </div>
 
                 <div class="mb-4">
                     <label for="latitude" class="form-label">Latitude</label>
                     <input type="number" step="any" class ="form-control" id="latitude" name="latitude"
-                           [(ngModel)]="address.latitude" min="-90.0" max="90.0">
+                           [(ngModel)]="address.latitude" min="-90.0" max="90.0" required>
                 </div>
                 <div class="mb-4">
                     <label for="longitude" class="form-label">Longitude</label>
                     <input type="number" step="any" class ="form-control" id="longitude" name="longitude"
-                           [(ngModel)]="address.longitude" min="-180.0" max="180.0">
+                           [(ngModel)]="address.longitude" min="-180.0" max="180.0" required>
                 </div>
                 <button (click)="getLocation()">Get My Location</button>
                 
@@ -73,15 +73,17 @@
                     <div class="row">
                         <div class="col">
                           <label>Start Time:</label>
-                          <input type="time" name="startTime" class="form-control" [(ngModel)]="openingHours[i].startTime">
+                          <input type="time" name="startTime" class="form-control" 
+                                 [(ngModel)]="openingHours[i].startTime" required>
                         </div>
                         <div class="col">
                           <label>End Time:</label>
-                          <input type="time" name="endTime" class="form-control" [(ngModel)]="openingHours[i].endTime">
+                          <input type="time" name="endTime" class="form-control" 
+                                 [(ngModel)]="openingHours[i].endTime" required>
                         </div>
                         <div class="col">
                           <label>Week Day:</label>
-                          <select name="weekDay" class="form-control" [(ngModel)]="openingHours[i].weekDay">
+                          <select name="weekDayOpeningHours" class="form-control" [(ngModel)]="openingHours[i].weekDay" required>
                             <option value="Monday">Monday</option>
                             <option value="Tuesday">Tuesday</option>
                             <option value="Wednesday">Wednesday</option>
@@ -100,7 +102,7 @@
                 <div class="mb-4" *ngFor="let entry of closingDays; let i = index">
                     <div class="col-md-7">
                         <label>Week Day:</label>
-                        <select name="weekDay" class="form-control" [(ngModel)]="closingDays[i].weekDay">
+                        <select name="weekDayClosingDay" class="form-control" [(ngModel)]="closingDays[i].weekDay" required>
                           <option value="Monday">Monday</option>
                           <option value="Tuesday">Tuesday</option>
                           <option value="Wednesday">Wednesday</option>
@@ -122,9 +124,10 @@
                 </div>
 
                 <div class="text-center text-lg-start mt-3 pt-2">
-                    <button class="btn btn-primary w-100" (click)="register()">Register</button>
+                    <button class="btn btn-primary w-100" type="submit">Register</button>
                 </div>
-                <!-- TODO end form -->
+
+            </form>
             </div>
         </div>
     </div>

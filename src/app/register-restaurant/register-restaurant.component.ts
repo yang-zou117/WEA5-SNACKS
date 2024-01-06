@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Address } from '../shared/address';
 import { RestaurantForCreation } from '../shared/restaurant-for-creation';
 import { OpeningHours } from '../shared/opening-hours';
 import { ClosingDay } from '../shared/closing-day';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'wea5-register-restaurant',
@@ -12,12 +13,17 @@ import { ClosingDay } from '../shared/closing-day';
 })
 export class RegisterRestaurantComponent {
 
+  errors: { [key: string]: string } = {};
+  @ViewChild('myForm', {static: true}) myForm!: NgForm;
+
+  // data model for the form 
   address: Address = new Address();
   restaurant: RestaurantForCreation = new RestaurantForCreation();
   openingHours: OpeningHours[] = [];
   openingHoursSize: number = 1; 
   closingDays: ClosingDay[] = [];
   closingDaysSize: number = 1;
+
 
   constructor() { 
     this.openingHours.push(new OpeningHours());
