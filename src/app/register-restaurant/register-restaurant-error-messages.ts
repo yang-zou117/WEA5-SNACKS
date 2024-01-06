@@ -23,5 +23,4 @@ export const RegisterRestaurantErrorMessages = [
     new ErrorMessage('endTime', 'required', 'A end time for opening hours is required'),
     new ErrorMessage('weekDayOpeningHours', 'required', 'A day for opening hours is required'),
     new ErrorMessage('weekDayClosingDay', 'required', 'A day for closing day is required'),
-    new ErrorMessage('checkTermsAccepted', 'required', 'You must accept the terms and conditions'),
 ]; 

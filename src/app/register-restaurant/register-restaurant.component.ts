@@ -5,6 +5,7 @@ import { OpeningHours } from '../shared/opening-hours';
 import { ClosingDay } from '../shared/closing-day';
 import { NgForm } from '@angular/forms';
 import { RegisterRestaurantErrorMessages } from './register-restaurant-error-messages';
+import { SnacksServiceService } from '../shared/snacks-service.service';
 
 @Component({
   selector: 'wea5-register-restaurant',
@@ -51,14 +52,12 @@ export class RegisterRestaurantComponent {
     this.openingHours = [];
     this.closingDays = [];
     this.openingHours.push(new OpeningHours());
-    this.closingDays.push(new ClosingDay());
     this.myForm.resetForm();
     this.updateErrorMessages();
   }
 
-  constructor() { 
+  constructor(private snacksService: SnacksServiceService) { 
     this.openingHours.push(new OpeningHours());
-    this.closingDays.push(new ClosingDay());
   }
 
   getLocation() {
@@ -104,11 +103,22 @@ export class RegisterRestaurantComponent {
       return; 
     }
 
-    alert("Restaurant registered!" + valid);
+    // compute values for closing days 
+    for(let weekDay of this.weekdays) {
+      let found = false;
+      for(let closingDay of this.closingDays) {
+        if(closingDay.weekDay == weekDay) {
+          found = true;
+          break;
+        }
+      }
+      if(!found) {
+        this.closingDays.push(new ClosingDay(weekDay));
+      }
+    }
+    
     this.resetData();
 
-  
-    
   }
 
 }

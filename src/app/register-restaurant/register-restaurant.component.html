@@ -124,37 +124,8 @@
                 <span style="margin-left: 10px;"></span>
                 <button type="button" (click)="popOpeningHours()">Remove Opening Hours</button>
 
-                <!-- section for closing days -->
-                <h4 class="text-left mt-5 mb-3"><u>Closing Days</u></h4>
-                <div class="mb-4" *ngFor="let entry of closingDays; let i = index">
-                    <div class="col-md-7">
-                        <label for="weekDayClosingDay">Week Day: *</label>
-                        <select name="weekDayClosingDay" id="weekDayClosingDay" class="form-control" [(ngModel)]="entry.weekDay" [value]="entry.weekDay" required>
-                            <option *ngFor="let option of weekdays" [value]="option">{{ option }}</option>
-                        </select>
-
-                        <div *ngIf="errors['weekDayClosingDay']" class="ui negative message">
-                            {{ errors['weekDayClosingDay'] }}
-                        </div>
-                    </div>
-                </div>
-                <button type="button" (click)="addClosingDay()">Add Closing Day</button>
-                <span style="margin-left: 10px;"></span>
-                <button type="button" (click)="popClosingDay()">Remove Closing Day</button>
-
-                <div class="mb-3 mt-5">
+                <div class="mb-5 mt-5">
                     * Required fields
-                </div>
-
-                <!-- checkbox for agree terms -->
-                <div class="mb-3 mt-5 text-center">
-                    <label for="checkTermsAccepted" class="form-label">I have read and agreed to 
-                        the terms and conditions * &nbsp;</label>
-                    <input type="checkbox" class="form-check-input form-control" id="checkTermsAccepted" style="display: inline-block;"
-                           name="checkTermsAccepted" required>
-                    <div *ngIf="errors['checkTermsAccepted']" class="ui negative message">
-                        {{ errors['checkTermsAccepted'] }}
-                    </div> 
                 </div>
 
                 <div class="text-center text-lg-start mt-3 pt-2">
