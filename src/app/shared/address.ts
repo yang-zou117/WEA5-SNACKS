@@ -5,8 +5,8 @@ export class Address {
         public streetNumber?: string, 
         public city?: string,
         public zipCode?: number,
-        public latitude?: number,
-        public longitude?: number,
+        public gpsLatitude?: number,
+        public gpsLongitude?: number,
         public free_text?: string
     ) {}
 }

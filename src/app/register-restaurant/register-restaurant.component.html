@@ -1,16 +1,22 @@
 <div class="row justify-content-center mt-5">
     <div class="col-md-7">
 
+        <div *ngIf="apiKey" class="ui positive message mb-3">
+            Restaurant successfully registered. <br>
+            Your restaurantId is: {{ restaurantId }} <br>
+            Your API key is: {{ apiKey }}
+        </div>
+
         <div class="card">
             <div class="card-header">
                 <h2 class="text-center"><b>Register new restaurant</b></h2>
             </div>
             <div class="card-body">
 
-                <form #myForm="ngForm" (ngSubmit)="register()">
+                <form #myForm="ngForm" (ngSubmit)="register($event)">
                 <!-- section for general information -->
                 <h4 class="text-left mt-3 mb-3"><u>General information</u></h4>
-                <div class="mb-3">
+                <div class="mb-3"> 
                     <label for="restaurantName" class="form-label">Restaurant name *</label>
                     <input class="form-control" id="restaurantName" name="restaurantName" 
                            [(ngModel)]="restaurant.restaurantName" required>
@@ -27,7 +33,7 @@
                     </div>
                 </div>
                 <div class="mb-4">
-                    <label for="titleImage" class="form-label">Title image (Only Image Files Allowed)</label>
+                    <label for="titleImage" class="form-label">Title image (Only Image Files Allowed) *</label>
                     <input type="file" class="form-control" id="titleImage" name="titleImage" accept="image/*"
                            (change)="onImageFileSelected($event)">
                 </div>
@@ -74,7 +80,7 @@
                 <div class="mb-4">
                     <label for="latitude" class="form-label">Latitude *</label>
                     <input type="number" step="any" class ="form-control" id="latitude" name="latitude"
-                           [(ngModel)]="address.latitude" min="-90.0" max="90.0" required>
+                           [(ngModel)]="address.gpsLatitude" min="-90.0" max="90.0" required>
                     <div *ngIf="errors['latitude']" class="ui negative message">
                         {{ errors['latitude'] }}
                     </div>
@@ -82,7 +88,7 @@
                 <div class="mb-4">
                     <label for="longitude" class="form-label">Longitude *</label>
                     <input type="number" step="any" class ="form-control" id="longitude" name="longitude"
-                           [(ngModel)]="address.longitude" min="-180.0" max="180.0" required>
+                           [(ngModel)]="address.gpsLongitude" min="-180.0" max="180.0" required>
                     <div *ngIf="errors['longitude']" class="ui negative message">
                         {{ errors['longitude'] }}
                     </div>

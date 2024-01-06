@@ -2,6 +2,7 @@ export class RestaurantForCreation {
     constructor(
         public restaurantName?: string,
         public webhookUrl?: string,
-        public imageFile?: File
+        public imageData?: string,
+        public fileType?: string
     ) {}
 }

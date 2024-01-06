@@ -25,6 +25,8 @@ export class RegisterRestaurantComponent {
 
   weekdays: string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
+  apiKey: string | undefined; // api key for new registered restaurant
+  restaurantId: number | undefined; // id of new registered restaurant
 
   ngOnInit() {
     this.myForm.statusChanges?.subscribe(() => this.updateErrorMessages());
@@ -63,8 +65,8 @@ export class RegisterRestaurantComponent {
   getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.address.latitude = position.coords.latitude;
-        this.address.longitude = position.coords.longitude;
+        this.address.gpsLatitude = position.coords.latitude;
+        this.address.gpsLongitude = position.coords.longitude;
       }, (error) => {
         console.error('Error getting location', error);
       });
@@ -73,10 +75,17 @@ export class RegisterRestaurantComponent {
     }
   }
 
-  onImageFileSelected(event: Event) {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files[0]) {
-      this.restaurant.imageFile = inputElement.files[0];
+  onImageFileSelected(event: any) {
+    const file = event.target.files[0];
+    const fileReader = new FileReader();
+
+    fileReader.onload = () => {
+      this.restaurant.imageData = fileReader.result?.toString().split(',')[1] || '';
+      this.restaurant.fileType = file.name.split('.').pop() as string;
+    }
+
+    if(file) {
+      fileReader.readAsDataURL(file);
     }
   }
 
@@ -96,18 +105,19 @@ export class RegisterRestaurantComponent {
     this.closingDays.pop();
   }
 
-  register() {
-    const valid = this.myForm.form.valid;
+  register(event: Event) {
+    event.preventDefault();
     if(!this.myForm.form.valid) { 
       this.updateErrorMessages();
       return; 
     }
 
     // compute values for closing days 
+    // better approach is to use triggers in the database but during the implementation of Backend, it was not done
     for(let weekDay of this.weekdays) {
       let found = false;
-      for(let closingDay of this.closingDays) {
-        if(closingDay.weekDay == weekDay) {
+      for(let entry of this.openingHours) {
+        if(entry.weekDay === weekDay) {
           found = true;
           break;
         }
@@ -116,8 +126,16 @@ export class RegisterRestaurantComponent {
         this.closingDays.push(new ClosingDay(weekDay));
       }
     }
-    
-    this.resetData();
+
+    this.snacksService.registerRestaurant(
+      this.restaurant, this.address, 
+      this.openingHours, this.closingDays).subscribe(
+      res => {
+
+      this.apiKey = res['apiKeyValue'];
+      this.restaurantId = res['restaurantId'];
+      this.resetData();
+    }); 
 
   }
 

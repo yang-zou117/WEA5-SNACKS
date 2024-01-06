@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { MyCartComponent } from './my-cart/my-cart.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { MyCartComponent } from './my-cart/my-cart.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule 
   ],
   providers: [],
