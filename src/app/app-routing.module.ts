@@ -16,6 +16,22 @@ const routes: Routes = [
 {
   path: 'register', 
   component: RegisterRestaurantComponent
+}, 
+{
+  path: 'search-results',
+  redirectTo: 'searchResults',
+}, 
+{
+  path: 'login',
+  redirectTo: 'login'
+}, 
+{
+  path: 'my-orders',
+  redirectTo: 'myOrders'
+}, 
+{
+  path: 'my-cart',
+  redirectTo: 'myCart'
 }
 ];
 
