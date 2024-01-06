@@ -46,3 +46,14 @@ footer {
     margin-top: 60px; 
 }
 
+@media screen and (prefers-reduced-motion: no-preference) {
+    .search-btn{
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .search-btn:hover{
+        transform: translateX(5px) scaleX(1.1); 
+    }
+
+}
+

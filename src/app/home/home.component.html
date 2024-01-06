@@ -1,1 +1,36 @@
-<p>home works!</p>
+
+<div class="container mb-5 mt-5">
+    <h2 style="font-weight: bold;">Find restaurants in your proximity</h2>
+
+    <div class="mb-3 col-md-6">
+
+        <div class="mt-4 mb-2">
+            <label for="shouldBeOpen" class="form-label">Should be open now: </label>
+            <span style="margin-left: 10px;"></span>
+            <input type="radio" name="shouldBeOpen" [value]="true" [(ngModel)]="shouldBeOpen"> Yes 
+            <input type="radio" name="shouldBeOpen" [value]="false" [(ngModel)]="shouldBeOpen"> No
+        </div>
+
+        <div class="mb-4">
+            <label for="maxDistance" class="form-label">Maximum distance (in km): </label>
+            <input type="number" class ="form-control" id="maxDistance" name="maxDistance"
+                   [(ngModel)]="maxDistance" min="0" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="latitude" class="form-label">Latitude: </label>
+            <input type="number" step="any" class ="form-control" id="latitude" name="latitude"
+                   [(ngModel)]="latitude" min="-90.0" max="90.0" required>
+        </div>
+        <div class="mb-4">
+            <label for="longitude" class="form-label">Longitude: </label>
+            <input type="number" step="any" class ="form-control" id="longitude" name="longitude"
+                   [(ngModel)]="longitude" min="-180.0" max="180.0" required>
+        </div>
+        <button (click)="getLocation()">Get My Location</button>
+    </div>
+    <button class="btn btn-primary mt-4 btn-lg search-btn" (onclick)="search()" >
+        Search <i class="bi bi-arrow-right"></i>
+    </button>
+
+</div>
