@@ -103,12 +103,14 @@
                         <div class="col">
                           <label for="startTime">Start Time: *</label>
                           <input type="time" name="startTime" class="form-control" id="startTime"
-                                 [(ngModel)]="entry.startTime" required>
+                                 [value]="openingHours[i].startTime"
+                                 (change) = "onSelectStartTime(i, $event)"
+                                 required>
                         </div>
                         <div class="col">
                           <label for="endTime">End Time: *</label>
                           <input type="time" name="endTime" class="form-control" id="endTime" 
-                                 [(ngModel)]="entry.endTime" 
+                                 [value]="openingHours[i].endTime"
                                  (change) = "onSelectEndTime(i, $event)"
                                  required>
                         </div>

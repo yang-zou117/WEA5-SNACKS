@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Address } from '../shared/address';
 import { RestaurantForCreation } from '../shared/restaurant-for-creation';
 import { OpeningHours } from '../shared/opening-hours';
@@ -53,13 +53,13 @@ export class RegisterRestaurantComponent {
     this.address = new Address();
     this.openingHours = [];
     this.closingDays = [];
-    this.openingHours.push(new OpeningHours(0, '', '00:00', '00:00'));
+    this.openingHours.push(new OpeningHours(0, 'Monday', '00:00:00', '23:59:00'));
     this.myForm.resetForm();
     this.updateErrorMessages();
   }
 
-  constructor(private snacksService: SnacksServiceService) { 
-    this.openingHours.push(new OpeningHours(0, '', '00:00', '00:00'));
+  constructor(private snacksService: SnacksServiceService, private elRef: ElementRef) { 
+    this.openingHours.push(new OpeningHours(0, 'Monday', '00:00:00', '23:59:00'));
   }
 
   getLocation() {
@@ -90,7 +90,7 @@ export class RegisterRestaurantComponent {
   }
 
   addOpeningHours() {
-    this.openingHours.push(new OpeningHours(0, '', '00:00', '00:00'));
+    this.openingHours.push(new OpeningHours(0, 'Monday', '00:00:00', '23:59:00'));
   }
 
   popOpeningHours() {
@@ -110,14 +110,35 @@ export class RegisterRestaurantComponent {
     this.openingHours[index].weekDay = value;
   }
 
+  parseTime(inputEvent: Event): string {
+    const value = (inputEvent.target as HTMLInputElement).value;
+    return value + ':00';
+  }
+
   onSelectEndTime(index: number, event: Event): void {
-    // check if end time is after start time
     let startTime = this.openingHours[index].startTime;
-    let endTime = (event.target as HTMLSelectElement).value;
+    let endTime = this.parseTime(event);
+    this.openingHours[index].endTime = endTime;
     if(startTime !== undefined && startTime > endTime) {
-      alert("End time must be after start time!");
-      return;
+      alert("Warning: end time should be after start time!");
     }
+  }
+
+  onSelectStartTime(index: number, event: Event): void {
+    let startTime = this.parseTime(event);
+    let endTime = this.openingHours[index].endTime;
+    this.openingHours[index].startTime = startTime;
+    if(endTime !== undefined && startTime > endTime) {
+      alert("Warning: start time should be before end time!");
+    }
+  }
+
+  scrollToTop(): void {
+    const yOffset = this.elRef.nativeElement.offsetTop; 
+    window.scrollTo({
+      top: yOffset,
+      behavior: 'smooth'
+    });
   }
 
   register(event: Event) {
@@ -135,6 +156,7 @@ export class RegisterRestaurantComponent {
 
       this.apiKey = res['apiKeyValue'];
       this.restaurantId = res['restaurantId'];
+      this.scrollToTop();
       this.resetData();
       this.isButtonDisabled = false;
     }); 

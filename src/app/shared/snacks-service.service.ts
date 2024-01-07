@@ -20,12 +20,6 @@ export class SnacksServiceService {
                        openingHours: OpeningHours[], 
                        closingDays: ClosingDay[]): Observable<any> {
         
-        // add seconds to opening hours to fit the format of the server
-        for(let i = 0; i < openingHours.length; i++) {
-            openingHours[i].startTime = openingHours[i].startTime + ":00";
-            openingHours[i].endTime = openingHours[i].endTime + ":00";
-        }
-
         // compute values for closing days 
         // better approach is to use triggers in the database but during the implementation of Backend, it was not done
         const weekdays: string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
