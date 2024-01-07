@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 export class SearchResultsComponent {
 
   restaurants: RestaurantSearchResult[] = [];
+  
 
   constructor(private dataSharingService: DataSharingService, 
               private sanitizer: DomSanitizer) {}
