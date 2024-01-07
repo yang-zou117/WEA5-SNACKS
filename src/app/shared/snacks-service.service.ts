@@ -6,6 +6,7 @@ import { RestaurantForCreation } from "./restaurant-for-creation";
 import { Address } from "./address";
 import { OpeningHours } from "./opening-hours";
 import { ClosingDay } from "./closing-day";
+import { RestaurantSearchResult } from "./restaurant-search-result";
 
 
 @Injectable({
@@ -14,6 +15,12 @@ import { ClosingDay } from "./closing-day";
 export class SnacksServiceService {
     
     constructor(private http: HttpClient) { }
+
+    private errorHandler(error: Error | any): Observable<any> {
+        alert("An error occured. Please try again later.")
+        console.log(error);
+        return of(null);
+      } 
 
     registerRestaurant(restaurant: RestaurantForCreation, 
                        address: Address, 
@@ -36,7 +43,7 @@ export class SnacksServiceService {
             }
         }
   
-  
+        // check if image is uploaded
         let restaurantObject: any = {};
         if(restaurant.imageData !== undefined && restaurant.fileType !== undefined) {
             restaurantObject = {
@@ -54,7 +61,6 @@ export class SnacksServiceService {
             };
         }
 
-
         const registerObject = {
             "restaurant": restaurantObject,
             "address": address,
@@ -65,14 +71,14 @@ export class SnacksServiceService {
 
         console.log(JSON.stringify(registerObject));
         return this.http.post(`${environment.server}/restaurant/register`, 
-                              JSON.stringify(registerObject), 
-                              {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}});
+                JSON.stringify(registerObject), 
+                {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}}).pipe(catchError(this.errorHandler));
     }
 
     getRestaurantsInProximity(maxDistance: number, latitude: number, 
-                              longitude: number, shouldBeOpen: boolean): Observable<any> {
-        return this.http.get(`${environment.server}/order/findRestaurants??maxDistance=${maxDistance}&latitude=${latitude}&longitude=${longitude}&shouldBeOpen=${shouldBeOpen}`, 
-                             {headers: {'Accept': 'application/json'}});
+                              longitude: number, shouldBeOpen: boolean): Observable<RestaurantSearchResult[]> {
+        return this.http.get(`${environment.server}/order/findRestaurants?maxDistance=${maxDistance}&latitude=${latitude}&longitude=${longitude}&shouldBeOpen=${shouldBeOpen}`, 
+                             {headers: {'Accept': 'application/json'}}).pipe(map<any, RestaurantSearchResult[]>(res => res), catchError(this.errorHandler));
     }
 
     

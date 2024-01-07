@@ -32,9 +32,9 @@
             <input type="number" step="any" class ="form-control" id="longitude" name="longitude"
                    [(ngModel)]="longitude" min="-180.0" max="180.0" required>
         </div>
-        <button (click)="getLocation()">Get My Location</button>
+        <button (click)="getLocation($event)">Get My Location</button>
     </div>
-    <button class="btn btn-primary mt-4 btn-lg search-btn" (click)="search()" type="submit" >
+    <button class="btn btn-primary mt-4 btn-lg search-btn" (click)="search()" type="submit" [disabled]="isButtonDisabled">
         Search <i class="bi bi-arrow-right"></i>
     </button>
     </form>

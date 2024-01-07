@@ -1,1 +1,28 @@
-<p>search-results works!</p>
+<div class="container mt-5">
+
+    <!-- show message if no search results -->
+    <div *ngIf="restaurants.length == 0" class="alert alert-info col-md-8" role="alert">
+        <h4>Unfortunately, no restaurant was found!</h4>
+        <p>Please try again with different search conditions!</p>
+    </div>
+
+    <div *ngFor="let res of restaurants" class="card mb-5" style="max-width: 700px;">
+        <div class="card-header my-card-header">
+          <h5 class="card-title">{{ res.restaurant.restaurantName }}</h5>
+        </div>
+        <div class="card-body my-card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <img [src]="imageUrl(res.restaurant.imagePath)" class="card-img-top img-fluid rounded" alt="Restaurant Image">
+            </div>
+            <div class="col-md-8">
+              <p class="card-text">
+                Distance: {{ res.distance }} km
+              </p>
+            </div>
+          </div>
+        </div>
+    </div>
+
+</div>
+
