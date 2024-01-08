@@ -1,1 +1,23 @@
-<p>my-cart works!</p>
+<div class="container mt-5">
+    <h2>My Cart</h2>
+    <div *ngIf="cartItems.length === 0; else showItems" class="mt-5">
+      <p class="my-font-size">Your cart is empty!</p>
+    </div>
+  
+    <ng-template #showItems>
+      <div class="card">
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let item of cartItems">
+              <div class="row">
+                <div class="col">{{ item.menuItemName }}</div>
+                <div class="col">Amount: {{ item.amount }}</div>>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-lg mt-3" (click)="clearCart()">Place order</button>
+    </ng-template>
+  </div>
+  

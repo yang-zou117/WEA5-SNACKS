@@ -85,3 +85,9 @@ h2 {
     font-size: 18px;
 }
 
+.amount-input{
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 50px;
+}
+

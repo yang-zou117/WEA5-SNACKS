@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RestaurantSearchResult } from '../shared/restaurant-search-result';
 import { DataSharingService } from '../shared/data-sharing-service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -91,6 +91,52 @@ export class SearchResultsComponent {
     this.deliveryConditions = [];
     this.menuItems = [];
     this.location.replaceState(`/search-results`);
+  }
+
+
+  addToCart(menuItemId: number | undefined, 
+            amount: string, menuItemName: 
+            string | undefined, 
+            restaurantId: number | undefined) {
+
+    const numericAmount: number = parseInt(amount, 10);
+    if(numericAmount <= 0 || menuItemId == undefined || menuItemId <= 0) {
+      alert("Invalid input");
+      return;
+    }
+
+    const confirmation = window.confirm(`Do you want to ddd item ${menuItemName} to cart with amount: ${numericAmount} ?`);
+    if(confirmation) {
+      const existingCart = JSON.parse(localStorage.getItem('cartItems') || '{}');
+
+      // check if there is already an item in the cart and if it is from the same restaurant
+      if(existingCart.hasOwnProperty('restaurantId')) {
+        if(existingCart.restaurantId !== restaurantId) {
+          alert('You cannot order from different restaurants at the same time.');
+          return;
+        }
+      }
+
+      // first time adding to cart
+      if(!existingCart.hasOwnProperty('restaurantId')) {
+        existingCart.restaurantId = restaurantId;
+        if(restaurantId !== undefined) {
+          existingCart.restaurantName = this.restaurantDetails[restaurantId]?.restaurant.restaurantName;
+        }
+        existingCart.items = [];
+      }
+
+      const cartItem = {
+        menuItemId: menuItemId,
+        menuItemName: menuItemName,
+        amount: numericAmount
+      };
+
+      existingCart.items.push(cartItem);
+      localStorage.setItem('cartItems', JSON.stringify(existingCart));
+      alert('Item added to cart successfully.');
+    }
+
   }
   
 
