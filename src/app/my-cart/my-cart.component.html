@@ -1,23 +1,41 @@
 <div class="container mt-5">
-    <h2>My Cart</h2>
-    <div *ngIf="cartItems.length === 0; else showItems" class="mt-5">
-      <p class="my-font-size">Your cart is empty!</p>
-    </div>
-  
-    <ng-template #showItems>
-      <div class="card">
-        <div class="card-body">
-          <ul class="list-group">
-            <li class="list-group-item" *ngFor="let item of cartItems">
-              <div class="row">
-                <div class="col">{{ item.menuItemName }}</div>
-                <div class="col">Amount: {{ item.amount }}</div>>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <button class="btn btn-primary btn-lg mt-3" (click)="clearCart()">Place order</button>
-    </ng-template>
+  <h2>My Cart</h2>
+  <div *ngIf="cartItems.length === 0; else showItems" class="mt-5">
+    <p class="my-font-size">Your cart is empty!</p>
   </div>
-  
+
+  <ng-template #showItems>
+    <div *ngIf="cartItems.length > 0" class="mt-5">
+      <h4 class="mb-4">Restaurant: {{ restaurantName }}</h4>
+      <div class="card col-lg-12">
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let item of cartItems" class="list-group-item">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <b>{{ item.menuItemName }}</b>
+              </div>
+              <div class="col-md-2">
+                <span class="btn btn-secondary rounded-pill mt-md-0 mt-2">Amount: {{ item.amount }}</span>
+              </div>
+              <div class="col-md-3">
+                <span class="btn btn-secondary rounded-pill mt-md-0 mt-2">Unit Price: {{ item.amount * item.menuItemPrice }} €</span>
+              </div>
+              <div class="col-md-2">
+                <span class="btn btn-secondary rounded-pill mt-md-0 mt-2">Total Price: {{ item.amount * item.menuItemPrice }} €</span>
+              </div>
+              <div class="col-md-1">
+                <button class="btn btn-danger rounded-pill mt-md-0 mt-2"><i class="bi bi-trash"></i></button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      
+
+      <button class="btn btn-primary btn-lg mt-5" (click)="clearCart()">
+        Place Order <i class="bi bi-bag"></i>
+      </button>
+    </div>
+  </ng-template>
+</div>

@@ -23,7 +23,7 @@ export class SnacksServiceService {
         alert("An error occured. Please try again later.")
         console.log(error);
         return of(null);
-      } 
+    } 
 
     registerRestaurant(restaurant: RestaurantForCreation, 
                        address: Address, 

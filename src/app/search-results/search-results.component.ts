@@ -5,7 +5,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { RestaurantDetails } from '../shared/restaurant-details';
 import { SnacksServiceService } from '../shared/snacks-service.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { DeliveryCondition } from '../shared/delivery-condition';
 import { MenuItem } from '../shared/menu-item';
 import { Location } from '@angular/common';
@@ -95,8 +94,9 @@ export class SearchResultsComponent {
 
 
   addToCart(menuItemId: number | undefined, 
-            amount: string, menuItemName: 
-            string | undefined, 
+            amount: string, 
+            menuItemPrice: number | undefined,
+            menuItemName: string | undefined, 
             restaurantId: number | undefined) {
 
     const numericAmount: number = parseInt(amount, 10);
@@ -107,7 +107,7 @@ export class SearchResultsComponent {
 
     const confirmation = window.confirm(`Do you want to ddd item ${menuItemName} to cart with amount: ${numericAmount} ?`);
     if(confirmation) {
-      const existingCart = JSON.parse(localStorage.getItem('cartItems') || '{}');
+      const existingCart = JSON.parse(localStorage.getItem('wea5-cart') || '{}');
 
       // check if there is already an item in the cart and if it is from the same restaurant
       if(existingCart.hasOwnProperty('restaurantId')) {
@@ -123,17 +123,24 @@ export class SearchResultsComponent {
         if(restaurantId !== undefined) {
           existingCart.restaurantName = this.restaurantDetails[restaurantId]?.restaurant.restaurantName;
         }
-        existingCart.items = [];
+        existingCart.items = {};
       }
 
       const cartItem = {
         menuItemId: menuItemId,
         menuItemName: menuItemName,
+        menuItemPrice: menuItemPrice,
         amount: numericAmount
       };
 
-      existingCart.items.push(cartItem);
-      localStorage.setItem('cartItems', JSON.stringify(existingCart));
+      // check if the item is already in the cart
+      if(existingCart.items.hasOwnProperty(menuItemId)) {
+        existingCart.items[menuItemId].amount += numericAmount;
+      } else {
+        existingCart.items[menuItemId] = cartItem;
+      }
+
+      localStorage.setItem('wea5-cart', JSON.stringify(existingCart));
       alert('Item added to cart successfully.');
     }
 

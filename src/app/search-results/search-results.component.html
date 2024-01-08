@@ -129,7 +129,7 @@
               {{ item.categoryName }}
             </td>
             <td>
-              <button class="btn btn-primary" (click)="addToCart(item.menuItemId, amount.value, item.menuItemName, item.restaurantId)">
+              <button class="btn btn-primary" (click)="addToCart(item.menuItemId, amount.value, item.price, item.menuItemName, item.restaurantId)">
                 Add to Cart &nbsp;<i class="bi bi-cart-plus"></i>
               </button>
               <input class="amount-input" type="number" #amount id="amount" name="amount" min="1" max="10" value="1">

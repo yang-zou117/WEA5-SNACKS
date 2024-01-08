@@ -50,7 +50,7 @@ export class HomeComponent {
     this.snacksService.getRestaurantsInProximity(this.maxDistance, this.latitude, 
                        this.longitude, this.shouldBeOpen).subscribe((res) => {
       if(res === null) {
-        alert("An error occured. Please try again later.");
+        window.location.reload();
         return;
       }
       this.isButtonDisabled = false;
