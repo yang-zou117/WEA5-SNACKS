@@ -19,6 +19,14 @@
               <p class="card-text">
                 Distance: <b>{{ res.distance }}</b> km
               </p>
+              <p>
+                <i class="bi bi-geo-alt-fill"></i> 
+                {{ restaurantDetails[res.restaurant.restaurantId].address.street }} 
+                {{ restaurantDetails[res.restaurant.restaurantId].address.streetNumber }}, <br>
+                {{ restaurantDetails[res.restaurant.restaurantId].address.zipCode }} <br>
+                {{ restaurantDetails[res.restaurant.restaurantId].address.city }}
+              </p>
+              <button (click)="showDetails(res.restaurant.restaurantId)" class="btn btn-primary">Show Details</button>
             </div>
           </div>
         </div>

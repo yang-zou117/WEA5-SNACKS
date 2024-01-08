@@ -7,6 +7,7 @@ import { Address } from "./address";
 import { OpeningHours } from "./opening-hours";
 import { ClosingDay } from "./closing-day";
 import { RestaurantSearchResult } from "./restaurant-search-result";
+import { RestaurantDetails } from "./restaurant-details";
 
 
 @Injectable({
@@ -81,5 +82,9 @@ export class SnacksServiceService {
                              {headers: {'Accept': 'application/json'}}).pipe(map<any, RestaurantSearchResult[]>(res => res), catchError(this.errorHandler));
     }
 
+    getRestaurantDetails(restaurantId: number): Observable<RestaurantDetails> {
+        return this.http.get(`${environment.server}/restaurant/${restaurantId}`, 
+                             {headers: {'Accept': 'application/json'}}).pipe(map<any, RestaurantDetails>(res => res), catchError(this.errorHandler));
+    }
     
 }
