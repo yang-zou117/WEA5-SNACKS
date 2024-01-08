@@ -47,11 +47,11 @@ footer {
 }
 
 @media screen and (prefers-reduced-motion: no-preference) {
-    .search-btn{
+    .search-btn, .visit-btn{
         transition: transform 0.3s ease-in-out;
     }
 
-    .search-btn:hover{
+    .search-btn:hover, .visit-btn:hover{
         transform: translateX(5px) scaleX(1.1); 
     }
 
@@ -63,7 +63,25 @@ h5 {
     font-size: 20px;
 }
 
+h2 {
+    font-weight: bold;
+}
+
 .my-card-body {
     font-size: 16px;
+}
+
+.max-size-image {
+    max-width: 300px;
+    max-height: 300px; 
+}
+  
+.restaurant-card-details{
+    display: flex; flex-direction: column;
+    font-size: 18px; 
+}
+
+.my-font-size {
+    font-size: 18px;
 }
 

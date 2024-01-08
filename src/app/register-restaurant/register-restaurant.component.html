@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="mb-4">
-                    <label for="titleImage" class="form-label">Title image (Only Image Files Allowed) *</label>
+                    <label for="titleImage" class="form-label">Title image (Only Image Files Allowed) </label>
                     <input type="file" class="form-control" id="titleImage" name="titleImage" accept="image/*"
                            (change)="onImageFileSelected($event)">
                 </div>
@@ -72,7 +72,7 @@
                 <div class="mb-4">
                     <label for="zipCode" class="form-label">Zip Code *</label>
                     <input type="text" class="form-control" id="zipCode" name="zipCode"
-                           [(ngModel)]="address.zipCode" required>
+                           [(ngModel)]="address.zipcode" required>
                     <div *ngIf="errors['zipCode']" class="ui negative message">
                         {{ errors['zipCode'] }}
                     </div>

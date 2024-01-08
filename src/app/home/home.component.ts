@@ -58,7 +58,7 @@ export class HomeComponent {
       // set the search results and navigate to the search results component
       this.dataSharingService.setSearchResults(res);
       this.router.navigate(['../search-results'])
-    });
+    }); 
 
   }
 

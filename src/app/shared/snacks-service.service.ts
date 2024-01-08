@@ -8,6 +8,8 @@ import { OpeningHours } from "./opening-hours";
 import { ClosingDay } from "./closing-day";
 import { RestaurantSearchResult } from "./restaurant-search-result";
 import { RestaurantDetails } from "./restaurant-details";
+import { DeliveryCondition } from "./delivery-condition";
+import { MenuItem } from "./menu-item";
 
 
 @Injectable({
@@ -85,6 +87,16 @@ export class SnacksServiceService {
     getRestaurantDetails(restaurantId: number): Observable<RestaurantDetails> {
         return this.http.get(`${environment.server}/restaurant/${restaurantId}`, 
                              {headers: {'Accept': 'application/json'}}).pipe(map<any, RestaurantDetails>(res => res), catchError(this.errorHandler));
+    }
+
+    getDeliveryConditions(restaurantId: number): Observable<DeliveryCondition[]> {
+        return this.http.get(`${environment.server}/deliverycondition/restaurant/${restaurantId}`, 
+                             {headers: {'Accept': 'application/json'}}).pipe(map<any, DeliveryCondition[]>(res => res), catchError(this.errorHandler));
+    }
+
+    getMenuItems(restaurantId: number): Observable<MenuItem[]> {
+        return this.http.get(`${environment.server}/menuitem/restaurant/${restaurantId}`, 
+                             {headers: {'Accept': 'application/json'}}).pipe(map<any, MenuItem[]>(res => res), catchError(this.errorHandler));
     }
     
 }

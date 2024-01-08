@@ -6,31 +6,133 @@
         <p>Please try again with different search conditions!</p>
     </div>
 
-    <div *ngFor="let res of restaurants" class="card mb-5" style="max-width: 700px;">
-        <div class="card-header my-card-header">
-          <h5 class="card-title">{{ res.restaurant.restaurantName }}</h5>
-        </div>
-        <div class="card-body my-card-body">
-          <div class="row">
-            <div class="col-md-4">
-              <img [src]="imageUrl(res.restaurant.imagePath)" class="card-img-top img-fluid rounded" alt="Restaurant Image">
-            </div>
-            <div class="col-md-8">
-              <p class="card-text">
-                Distance: <b>{{ res.distance }}</b> km
-              </p>
-              <p>
-                <i class="bi bi-geo-alt-fill"></i> 
-                {{ restaurantDetails[res.restaurant.restaurantId].address.street }} 
-                {{ restaurantDetails[res.restaurant.restaurantId].address.streetNumber }}, <br>
-                {{ restaurantDetails[res.restaurant.restaurantId].address.zipCode }} <br>
-                {{ restaurantDetails[res.restaurant.restaurantId].address.city }}
-              </p>
-              <button (click)="showDetails(res.restaurant.restaurantId)" class="btn btn-primary">Show Details</button>
+    <!-- show all restaurant search results -->
+    <div *ngIf="selectedRestaurantId <= 0"> 
+      <div *ngFor="let res of restaurants" class="card mb-5" style="max-width: 700px;">
+          <div class="card-header my-card-header">
+            <h5 class="card-title">{{ res.restaurant.restaurantName }}</h5>
+          </div>
+          <div class="card-body my-card-body">
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <img [src]="imageUrl(res.restaurant.imagePath)" 
+                    class="card-img-top img-fluid rounded max-size-image" alt="No Restaurant Image">
+              </div>
+              <div class="col-md-8 restaurant-card-details">
+                <p class="card-text">
+                  Distance: <b>{{ res.distance }}</b> km
+                </p>
+                <p *ngIf="restaurantDetails[res.restaurant.restaurantId] !== undefined">
+                  <i class="bi bi-geo-alt-fill"></i> 
+                  {{ restaurantDetails[res.restaurant.restaurantId].address.street }} 
+                  {{ restaurantDetails[res.restaurant.restaurantId].address.streetNumber }}, <br> &nbsp; &nbsp;&nbsp;
+                  {{ restaurantDetails[res.restaurant.restaurantId].address.zipcode }}
+                  {{ restaurantDetails[res.restaurant.restaurantId].address.city }}
+                </p>
+                <button (click)="showDetails(res.restaurant.restaurantId)" class="btn btn-primary mb-3 btn-lg visit-btn" style="margin-top: auto; max-width: fit-content;">
+                  Visit Restaurant &nbsp;
+                  <i class="bi bi-caret-right-fill"></i>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+      </div>
     </div>
+
+    <!-- show restaurant details -->
+    <div *ngIf="selectedRestaurantId > 0"> 
+
+      <div class="row">
+        <div class="col-md-6">
+          <h2>{{ restaurantDetails[selectedRestaurantId].restaurant.restaurantName }}</h2>
+          <div class="mt-5">
+            <p class="my-font-size">
+              <i class="bi bi-geo-alt-fill"></i> 
+              {{ restaurantDetails[selectedRestaurantId].address.street }} 
+              {{ restaurantDetails[selectedRestaurantId].address.streetNumber }}, <br> &nbsp; &nbsp;&nbsp;
+              {{ restaurantDetails[selectedRestaurantId].address.zipcode }}
+              {{ restaurantDetails[selectedRestaurantId].address.city }}
+            </p>
+          </div>
+          <div class="mt-3 mb-3">
+            <h4>Opening Hours:</h4>
+            <div class="mt-3">
+              <div *ngFor="let group of groupByWeekday(restaurantDetails[selectedRestaurantId].openingHours)">
+                <div style="display: inline-block; width: 80px; padding-right: 10px;">
+                  {{ group[0] }}:
+                </div>
+                <div style="display: inline-block;">
+                  <b *ngFor="let entry of group[1]">{{ entry.startTime }} - {{ entry.endTime }} &nbsp;</b>
+                </div>
+              </div>              
+            </div>
+                
+          </div>
+          <div class="mt-3" style="display: inline-block;">
+            <h4 style="display: inline-block; margin-right: 10px;">Closing Days: </h4>
+            <b *ngFor="let day of restaurantDetails[selectedRestaurantId].closingDays let last=last" 
+            style="display: inline-block;">{{ day.weekDay }} <span *ngIf="!last">, &nbsp;</span></b>
+          </div>         
+          
+          <div class="mt-5">
+            <h4>Delivery Conditions: </h4>
+            <div class="mt-3" > 
+              <ul>
+                <li *ngFor="let entry of deliveryConditions">
+                  Min. Order Value: {{ entry.minOrderValue }} €,<br>
+                  Distance: {{ entry.distanceLowerThreshold }} - {{ entry.distanceUpperThreshold }} km,<br>
+                  <span *ngIf="entry.orderValueLowerThreshold !== null && entry.orderValueUpperThreshold !== null">
+                    Order Value: {{ entry.orderValueLowerThreshold }} - {{ entry.orderValueUpperThreshold }} €,<br>
+                  </span>
+                  <span *ngIf="entry.orderValueUpperThreshold === null">
+                    Order Value: from {{ entry.orderValueLowerThreshold }} €,<br>
+                  </span>
+                  Delivery Fee: <b>{{ entry.deliveryCosts }}</b> €
+                </li>
+              </ul>              
+            </div>
+             
+          </div>
+
+        </div>
+        
+      <div class="col-md-6">
+        <img [src]="imageUrl(restaurantDetails[selectedRestaurantId].restaurant.imagePath)" 
+            class="card-img-top img-fluid rounded max-size-image" alt="No Restaurant Image">
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <h4>Menu: </h4>
+      <table class="table align-middle" id="editableTable">
+        <thead class=table-primary>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price in €</th>
+            <th scope="col">Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of menuItems">
+            <td>{{ item.menuItemName }}</td>
+            <td>{{ item.menuItemDescription }}</td>
+            <td><b>{{ item.price | number: '1.2-2' }}</b></td>
+            <td>{{ item.categoryName }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button (click)="backToSearchResults()" class="btn btn-warning mt-5 btn-lg">
+      <i class="bi bi-caret-left-fill"></i>
+      Back to Search Results &nbsp;
+    </button>
+
+        
+
+    </div>
+
 
 </div>
 
