@@ -91,3 +91,6 @@ h2 {
     width: 50px;
 }
 
+.no-cursor{
+    cursor: default;
+}

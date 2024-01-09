@@ -1,30 +1,32 @@
 <div class="container mt-5">
   <h2>My Cart</h2>
-  <div *ngIf="cartItems.length === 0; else showItems" class="mt-5">
+  <div *ngIf="getNumberOfItems() === 0; else showItems" class="mt-5">
     <p class="my-font-size">Your cart is empty!</p>
   </div>
 
   <ng-template #showItems>
-    <div *ngIf="cartItems.length > 0" class="mt-5">
-      <h4 class="mb-4">Restaurant: {{ restaurantName }}</h4>
+    <div *ngIf="getNumberOfItems() > 0" class="mt-5">
+      <h4 class="mb-4">Restaurant: {{ restaurantName }} &nbsp; &nbsp; &nbsp; ({{ getNumberOfItems() }} Items)</h4>
       <div class="card col-lg-12">
         <ul class="list-group list-group-flush">
-          <li *ngFor="let item of cartItems" class="list-group-item">
+          <li *ngFor="let item of getItems()" class="list-group-item">
             <div class="row align-items-center">
               <div class="col-md-4">
                 <b>{{ item.menuItemName }}</b>
               </div>
+              <div class="col-md-4">
+                <span class="btn btn-danger rounded-circle" (click)="decreaseItemAmount(item)"><i class="bi bi-dash"></i></span>
+                <span>&nbsp;</span>
+                <span class="btn btn-secondary rounded-pill mt-md-0 mt-2 no-cursor">Amount: {{ item.amount }}</span>
+                <span>&nbsp;</span>
+                <span class="btn btn-success rounded-circle" (click)="increaseItemAmount(item)"><i class="bi bi-plus"></i></span>
+              </div>
+              
               <div class="col-md-2">
-                <span class="btn btn-secondary rounded-pill mt-md-0 mt-2">Amount: {{ item.amount }}</span>
-              </div>
-              <div class="col-md-3">
-                <span class="btn btn-secondary rounded-pill mt-md-0 mt-2">Unit Price: {{ item.amount * item.menuItemPrice }} €</span>
+                <span class="btn btn-secondary rounded-pill mt-md-0 mt-2 no-cursor">Unit Price: {{ item.menuItemPrice }} €</span>
               </div>
               <div class="col-md-2">
-                <span class="btn btn-secondary rounded-pill mt-md-0 mt-2">Total Price: {{ item.amount * item.menuItemPrice }} €</span>
-              </div>
-              <div class="col-md-1">
-                <button class="btn btn-danger rounded-pill mt-md-0 mt-2"><i class="bi bi-trash"></i></button>
+                <span class="btn btn-secondary rounded-pill mt-md-0 mt-2 no-cursor">Total Price: {{ item.amount * item.menuItemPrice | number: '1.2-2' }} €</span>
               </div>
             </div>
           </li>
