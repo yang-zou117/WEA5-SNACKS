@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { SnacksServiceService } from '../shared/snacks-service.service';
 import { Address } from '../shared/address';
 import { OrderForCreation } from '../shared/order-for-creation';
-import { MenuItem } from '../shared/menu-item';
 import { OrderedItem } from '../shared/ordered-item';
 import { PriceCalculation } from '../shared/price-calculation';
 import { PostOrder } from '../shared/post-order';
+import { Router } from '@angular/router';
 
 interface CartItem {
   menuItemId: number,
@@ -35,7 +35,7 @@ export class MyCartComponent implements OnInit {
     this.loadCartItems();
   }
 
-  constructor(private snacksService:SnacksServiceService) { }
+  constructor(private snacksService:SnacksServiceService, private router: Router) { }
 
   loadCartItems() {
     const cart = localStorage.getItem('wea5-cart');
@@ -155,7 +155,6 @@ export class MyCartComponent implements OnInit {
     const priceCalculation = new PriceCalculation(this.restaurantId, this.address, orderedItems);
 
     this.snacksService.calculateTotalPrice(priceCalculation).subscribe((res: number) => {
-      alert('Total price: ' + res);
       this.totalPrice = res;
     });
 
@@ -189,7 +188,6 @@ export class MyCartComponent implements OnInit {
           this.disableOrderButton = false;
           return;
         } else {
-          alert('Order placed successfully');
           console.log(res["orderId"]);
           
           // store the order id in the local storage
@@ -198,6 +196,8 @@ export class MyCartComponent implements OnInit {
           localStorage.setItem('wea5-orders', JSON.stringify(existingOrders));
 
           this.clearCart();
+          // redirect to the my orders page
+          this.router.navigate(['../my-orders']);
           
         }
 
@@ -205,16 +205,10 @@ export class MyCartComponent implements OnInit {
 
       }); 
 
-
-
       
     } else {
       alert('Please enter your name and phone number');
     }
-
-
-
-
 
   }
 

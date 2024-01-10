@@ -12,6 +12,7 @@ import { DeliveryCondition } from "./delivery-condition";
 import { MenuItem } from "./menu-item";
 import { PriceCalculation } from "./price-calculation";
 import { PostOrder } from "./post-order";
+import { Order } from "./order";
 
 
 @Injectable({
@@ -125,6 +126,11 @@ export class SnacksServiceService {
                             {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}}).pipe(map<any, any>(res => res), catchError(this.orderNotCreatedHandler));
     }
     
+    getOrderForId(orderId: number): Observable<Order> {
+        return this.http.get(`${environment.server}/order/${orderId}`, 
+                             {headers: {'Accept': 'application/json'}}).pipe(map<any, Order>(res => res), catchError(this.errorHandler));
+    }
+
     
     
 }

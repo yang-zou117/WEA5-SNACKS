@@ -94,3 +94,8 @@ h2 {
 .no-cursor{
     cursor: default;
 }
+
+.fixed-width-label {
+    display: inline-block;
+    width: 150px; 
+  }

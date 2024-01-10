@@ -1,1 +1,40 @@
-<p>my-orders works!</p>
+<div class="container mt-5">
+    <h2 class="mb-5">My Orders: </h2>
+    <div *ngIf="myOrders.length === 0;">
+        <p class="my-font-size">You have no orders yet!</p>
+    </div>
+      
+    <div *ngIf="myOrders.length >= 0">
+    <div *ngFor="let order of myOrders" class="card col-md-7 mb-4">
+        <div class="card-body">
+        <h5 class="card-title mb-3">Order Information</h5>
+        <p class="card-text">
+            <span class="fixed-width-label">Order ID:</span>
+            <b>{{ order.orderId }}</b>
+        </p>
+        <p class="card-text">
+            <span class="fixed-width-label">Customer Name:</span>
+            <b>{{ order.customerName }}</b>
+        </p>
+        <p class="card-text">
+            <span class="fixed-width-label">Phone Number:</span>
+            <b>{{ order.phoneNumber }}</b>
+        </p>
+        <p class="card-text">
+            <span class="fixed-width-label">Ordered Date:</span>
+            <b>{{ order.orderedDate | date:'medium' }}</b>
+        </p>
+        <p class="card-text">
+            <span class="fixed-width-label">Status:</span>
+            <b>{{ order.status }}</b>
+        </p>
+        <p class="card-text">
+            <span class="fixed-width-label">Order Costs:</span>
+            <b>{{ order.orderCosts | number: '1.2-2' }} €</b>
+        </p>
+        </div>
+    </div>
+    </div>
+      
+
+</div>

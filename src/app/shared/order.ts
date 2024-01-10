@@ -1,12 +1,12 @@
 export class Order {
     constructor(
-        orderId: number, 
-        restaurantId: number,
-        addressId:number, 
-        customerName: string, 
-        phoneNumber : string,
-        orderedDate: Date,
-        status: string,
-        orderCosts: number,
+        public orderId: number, 
+        public restaurantId: number,
+        public addressId:number, 
+        public customerName: string, 
+        public phoneNumber : string,
+        public orderedDate: Date,
+        public status: string,
+        public orderCosts: number,
     ){}
 }
