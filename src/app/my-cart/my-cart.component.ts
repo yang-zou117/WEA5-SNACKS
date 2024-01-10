@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SnacksServiceService } from '../shared/snacks-service.service';
+import { SnacksServiceService } from '../services/snacks-service.service';
 import { Address } from '../shared/address';
 import { OrderForCreation } from '../shared/order-for-creation';
 import { OrderedItem } from '../shared/ordered-item';

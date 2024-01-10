@@ -5,7 +5,7 @@ import { OpeningHours } from '../shared/opening-hours';
 import { ClosingDay } from '../shared/closing-day';
 import { NgForm } from '@angular/forms';
 import { RegisterRestaurantErrorMessages } from './register-restaurant-error-messages';
-import { SnacksServiceService } from '../shared/snacks-service.service';
+import { SnacksServiceService } from '../services/snacks-service.service';
 
 @Component({
   selector: 'wea5-register-restaurant',

@@ -4,7 +4,7 @@ import { DataSharingService } from '../shared/data-sharing-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { RestaurantDetails } from '../shared/restaurant-details';
-import { SnacksServiceService } from '../shared/snacks-service.service';
+import { SnacksServiceService } from '../services/snacks-service.service';
 import { DeliveryCondition } from '../shared/delivery-condition';
 import { MenuItem } from '../shared/menu-item';
 import { Location } from '@angular/common';

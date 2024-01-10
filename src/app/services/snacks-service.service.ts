@@ -2,17 +2,17 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, of, retry } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { RestaurantForCreation } from "./restaurant-for-creation";
-import { Address } from "./address";
-import { OpeningHours } from "./opening-hours";
-import { ClosingDay } from "./closing-day";
-import { RestaurantSearchResult } from "./restaurant-search-result";
-import { RestaurantDetails } from "./restaurant-details";
-import { DeliveryCondition } from "./delivery-condition";
-import { MenuItem } from "./menu-item";
-import { PriceCalculation } from "./price-calculation";
-import { PostOrder } from "./post-order";
-import { Order } from "./order";
+import { RestaurantForCreation } from "../shared/restaurant-for-creation";
+import { Address } from "../shared//address";
+import { OpeningHours } from "../shared//opening-hours";
+import { ClosingDay } from "../shared//closing-day";
+import { RestaurantSearchResult } from "../shared//restaurant-search-result";
+import { RestaurantDetails } from "../shared//restaurant-details";
+import { DeliveryCondition } from "../shared//delivery-condition";
+import { MenuItem } from "../shared//menu-item";
+import { PriceCalculation } from "../shared//price-calculation";
+import { PostOrder } from "../shared//post-order";
+import { Order } from "../shared//order";
 
 
 @Injectable({

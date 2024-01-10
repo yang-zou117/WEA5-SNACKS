@@ -18,6 +18,11 @@ const routes: Routes = [
   component: HomeComponent
 },
 {
+  path: 'index.html',
+  redirectTo: 'home',
+  pathMatch: 'full'
+},
+{
   path: 'register', 
   component: RegisterRestaurantComponent
 }, 

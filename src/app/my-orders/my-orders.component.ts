@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SnacksServiceService } from '../shared/snacks-service.service';
+import { SnacksServiceService } from '../services/snacks-service.service';
 import { Order } from '../shared/order';
 
 @Component({
