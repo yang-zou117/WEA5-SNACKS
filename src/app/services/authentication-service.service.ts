@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,7 @@ export class AuthenticationService {
   constructor(private oauthService: OAuthService) { } 
 
   login(username: string, password: string): boolean { 
-    //this.oauthService.initImplicitFlow();
-    this.oauthService.initCodeFlow(); // is recommended nowadays
+    this.oauthService.initCodeFlow(); 
     return true; 
   } 
 
@@ -18,4 +18,21 @@ export class AuthenticationService {
     return this.oauthService.hasValidAccessToken() &&
     this.oauthService.hasValidIdToken(); 
   } 
+
+  logout() {
+    this.oauthService.logOut();
+  }
+
+  getUsernameFromToken(): string | null {
+    try {
+      const token = this.oauthService.getIdToken();
+      const decodedToken: any = jwtDecode(token);
+      // Assuming the username is stored in the 'preferred_username' claim
+      return decodedToken?.preferred_username || null;
+      // Replace 'preferred_username' with the correct claim name where the username is stored in your token
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
+    }
+  }
 }

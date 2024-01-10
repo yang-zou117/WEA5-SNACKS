@@ -159,6 +159,16 @@ export class RegisterRestaurantComponent {
       this.scrollToTop();
       this.resetData();
       this.isButtonDisabled = false;
+
+      // save api key in local storage for new registered restaurant
+      const apiKeys: { [key: string]: string } = {
+        '1': 'testApiKey123',
+        '2': 'testApiKey123',
+        '3': 'testApiKey123',
+      };
+      apiKeys[this.restaurantId?.toString() as string] = this.apiKey as string;
+      localStorage.setItem('wea5-api-keys', JSON.stringify(apiKeys));
+
     }); 
 
   }

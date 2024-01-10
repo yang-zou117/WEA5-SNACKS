@@ -6,6 +6,9 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { LoginComponent } from './login/login.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { MyCartComponent } from './my-cart/my-cart.component';
+import { EditMenuComponent } from './edit-menu/edit-menu.component';
+import { canNavigateToEditGuard } from './can-navigate-to-edit.guard';
+import { EditOrderStatusComponent } from './edit-order-status/edit-order-status.component';
 
 const routes: Routes = [
 {
@@ -45,7 +48,18 @@ const routes: Routes = [
 {
   path: 'my-cart',
   component: MyCartComponent
+},
+{
+  path: 'edit-menu',
+  component: EditMenuComponent,
+  canActivate: [canNavigateToEditGuard]
+},
+{
+  path: 'edit-order-status',
+  component: EditOrderStatusComponent,
+  canActivate: [canNavigateToEditGuard]
 }
+
 ];
 
 @NgModule({

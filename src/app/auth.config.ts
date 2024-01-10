@@ -8,7 +8,7 @@ export const authConfig: AuthConfig = {
     sessionCheckIFrameUrl: 'http://localhost:8080/realms/wea5/protocol/openid-connect/login-status-iframe.html', 
     userinfoEndpoint: 'http://localhost:8080/realms/wea5/protocol/openid-connect/userinfo', 
     clientId: 'wea5-SNACKS', 
-    redirectUri: window.location.origin + '/index.html', 
+    redirectUri: window.location.origin + '/login', 
     silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html', 
     scope: 'profile email', 
     silentRefreshTimeout: 5000, // For faster testing
