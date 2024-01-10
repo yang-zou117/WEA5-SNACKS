@@ -4,7 +4,7 @@ import { DataSharingService } from '../shared/data-sharing-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { RestaurantDetails } from '../shared/restaurant-details';
-import { SnacksServiceService } from '../services/snacks-service.service';
+import { SnacksService } from '../services/snacks-service.service';
 import { DeliveryCondition } from '../shared/delivery-condition';
 import { MenuItem } from '../shared/menu-item';
 import { Location } from '@angular/common';
@@ -32,7 +32,7 @@ export class SearchResultsComponent {
 
   constructor(private dataSharingService: DataSharingService, 
               private sanitizer: DomSanitizer,
-              private snacksService: SnacksServiceService, 
+              private snacksService: SnacksService, 
               private location: Location) {}
   
   ngOnInit(): void {

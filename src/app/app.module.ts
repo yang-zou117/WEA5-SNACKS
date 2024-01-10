@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { LoggedInWelcomeComponent } from './logged-in-welcome/logged-in-welcome.component';
+import { EditMenuComponent } from './edit-menu/edit-menu.component';
+import { EditOrderStatusComponent } from './edit-order-status/edit-order-status.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { OAuthModule } from 'angular-oauth2-oidc';
     MyOrdersComponent,
     MyCartComponent,
     LoginComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    LoggedInWelcomeComponent,
+    EditMenuComponent,
+    EditOrderStatusComponent
   ],
   imports: [
     BrowserModule,

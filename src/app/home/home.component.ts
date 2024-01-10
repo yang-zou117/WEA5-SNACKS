@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SnacksServiceService } from '../services/snacks-service.service';
+import { SnacksService } from '../services/snacks-service.service';
 import { Router } from '@angular/router';
 import { DataSharingService } from '../shared/data-sharing-service';
 
@@ -19,7 +19,7 @@ export class HomeComponent {
 
   isButtonDisabled:boolean = false; 
 
-  constructor(private snacksService: SnacksServiceService, 
+  constructor(private snacksService: SnacksService, 
               private router: Router, 
               private dataSharingService: DataSharingService) { }
 

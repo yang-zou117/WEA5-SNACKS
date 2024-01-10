@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SnacksServiceService } from '../services/snacks-service.service';
+import { SnacksService } from '../services/snacks-service.service';
 import { Order } from '../shared/order';
 
 @Component({
@@ -12,7 +12,7 @@ export class MyOrdersComponent {
 
   myOrders: Order[] = [];
 
-  constructor(private snacksService: SnacksServiceService) { }
+  constructor(private snacksService: SnacksService) { }
 
   ngOnInit() {
     this.loadMyOrders();

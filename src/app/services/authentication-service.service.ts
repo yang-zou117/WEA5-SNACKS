@@ -4,7 +4,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationServiceService {
+export class AuthenticationService {
 
   constructor(private oauthService: OAuthService) { } 
 

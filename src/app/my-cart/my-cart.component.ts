@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SnacksServiceService } from '../services/snacks-service.service';
+import { SnacksService } from '../services/snacks-service.service';
 import { Address } from '../shared/address';
 import { OrderForCreation } from '../shared/order-for-creation';
 import { OrderedItem } from '../shared/ordered-item';
@@ -35,7 +35,7 @@ export class MyCartComponent implements OnInit {
     this.loadCartItems();
   }
 
-  constructor(private snacksService:SnacksServiceService, private router: Router) { }
+  constructor(private snacksService:SnacksService, private router: Router) { }
 
   loadCartItems() {
     const cart = localStorage.getItem('wea5-cart');

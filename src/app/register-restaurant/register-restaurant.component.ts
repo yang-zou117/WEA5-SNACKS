@@ -5,7 +5,7 @@ import { OpeningHours } from '../shared/opening-hours';
 import { ClosingDay } from '../shared/closing-day';
 import { NgForm } from '@angular/forms';
 import { RegisterRestaurantErrorMessages } from './register-restaurant-error-messages';
-import { SnacksServiceService } from '../services/snacks-service.service';
+import { SnacksService } from '../services/snacks-service.service';
 
 @Component({
   selector: 'wea5-register-restaurant',
@@ -58,7 +58,7 @@ export class RegisterRestaurantComponent {
     this.updateErrorMessages();
   }
 
-  constructor(private snacksService: SnacksServiceService, private elRef: ElementRef) { 
+  constructor(private snacksService: SnacksService, private elRef: ElementRef) { 
     this.openingHours.push(new OpeningHours(0, 'Monday', '00:00:00', '23:59:00'));
   }
 

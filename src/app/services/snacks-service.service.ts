@@ -18,7 +18,7 @@ import { Order } from "../shared//order";
 @Injectable({
     providedIn: 'root'
 })
-export class SnacksServiceService {
+export class SnacksService {
     
     constructor(private http: HttpClient) { }
 
