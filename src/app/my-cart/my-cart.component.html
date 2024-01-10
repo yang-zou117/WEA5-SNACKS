@@ -8,7 +8,7 @@
     <div *ngIf="getNumberOfItems() > 0" class="mt-5">
 
       <!-- showing items of the cart -->
-      <h4 class="mb-4">Restaurant: {{ restaurantName }} &nbsp; &nbsp; &nbsp; ({{ getNumberOfItems() }} Items)</h4>
+      <h3 class="mb-4">Restaurant: {{ restaurantName }}</h3>
       <div class="card col-lg-12">
         <ul class="list-group list-group-flush">
           <li *ngFor="let item of getItems()" class="list-group-item">
@@ -35,12 +35,76 @@
         </ul>
       </div>
 
+      <!-- show order value -->
+      <h4 class="mb-4 mt-5">Order Value: &nbsp; <b> {{ getOrderValue() | number: '1.2-2' }} €</b> &nbsp; &nbsp; &nbsp; {{ getNumberOfItems() }} item(s)</h4>
+
       <!-- show information for user, address, phone number etc. -->
-      <h3 class="mb-4">Delivery Address: </h3>
-      
+      <h4 class="mb-4 mt-5">Delivery Address: </h4>
+
+      <div class="col-md-7">
+        <div class="mb-4 row">
+          <div class="col">
+            <label for="street" class="form-label">Street *</label>
+            <input type="text" class="form-control" id="street" name="street" [(ngModel)]="address.street" required>
+          </div>
+          <div class="col">
+            <label for="streetNumber" class="form-label">House Number *</label>
+            <input type="number" class="form-control" id="streetNumber" name="streetNumber" [(ngModel)]="address.streetNumber" required>
+          </div>
+        </div>
+        
+        <div class="mb-4 row">
+          <div class="col">
+            <label for="city" class="form-label">City *</label>
+            <input type="text" class="form-control" id="city" name="city"
+                   [(ngModel)]="address.city" required>
+          </div>
+          <div class="col">
+            <label for="zipCode" class="form-label">Zip Code *</label>
+            <input type="text" class="form-control" id="zipCode" name="zipCode"
+                   [(ngModel)]="address.zipcode" required>
+          </div>
+        </div>
+
+        <div class="mb-4 row">
+          <div class="col">
+            <label for="latitude" class="form-label">Latitude *</label>
+            <input type="number" step="any" class ="form-control" id="latitude" name="latitude"
+                  [(ngModel)]="address.gpsLatitude" min="-90.0" max="90.0" required>
+          </div>
+          <div class="col">
+            <label for="longitude" class="form-label">Longitude *</label>
+            <input type="number" step="any" class ="form-control" id="longitude" name="longitude"
+                  [(ngModel)]="address.gpsLongitude" min="-180.0" max="180.0" required>
+          </div>
+        </div>
+
+        <div class="mb-4 row">
+          <div class="col">
+            <label for="customerName" class="form-label">Customer Name *</label>
+            <input type="text" class="form-control" id="customerName" name="customerName"
+                   [(ngModel)]="orderForCreation.customerName" required>
+          </div>
+          <div class="col">
+            <label for="phoneNumber" class="form-label">Phone Number *</label>
+            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                   [(ngModel)]="orderForCreation.phoneNumber" required>
+          </div>
+        </div>
+  
+ 
+    
+        <button (click)="getLocation()">Get My Location</button>
+        <span style="margin-left: 8px;"></span>
+        <button (click)="calculateTotalPrice()"> Calculate Total Price</button>
+
+        <h4 *ngIf="totalPrice >= 0" class="mt-5">Total Price for your Order: &nbsp; <b>{{totalPrice | number: '1.2-2'}} € </b></h4>
+ 
+          
+      </div>
       
 
-      <button class="btn btn-primary btn-lg mt-5" (click)="clearCart()">
+      <button class="btn btn-primary btn-lg mt-5" (click)="placeOrder()" [disabled]="disableOrderButton">
         Place Order <i class="bi bi-bag"></i>
       </button>
     </div>

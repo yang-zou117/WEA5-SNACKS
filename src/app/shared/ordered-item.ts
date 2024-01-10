@@ -1,6 +1,6 @@
 export class OrderedItem {
     constructor(
-        menuItemId: number,
-        amount: number,
+        public menuItemId: number,
+        public amount: number,
     ) {}
 }
