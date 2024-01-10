@@ -6,6 +6,8 @@
 
   <ng-template #showItems>
     <div *ngIf="getNumberOfItems() > 0" class="mt-5">
+
+      <!-- showing items of the cart -->
       <h4 class="mb-4">Restaurant: {{ restaurantName }} &nbsp; &nbsp; &nbsp; ({{ getNumberOfItems() }} Items)</h4>
       <div class="card col-lg-12">
         <ul class="list-group list-group-flush">
@@ -32,6 +34,9 @@
           </li>
         </ul>
       </div>
+
+      <!-- show information for user, address, phone number etc. -->
+      <h3 class="mb-4">Delivery Address: </h3>
       
       
 

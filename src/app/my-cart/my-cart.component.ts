@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SnacksServiceService } from '../shared/snacks-service.service';
 import { Address } from '../shared/address';
+import { OrderForCreation } from '../shared/order-for-creation';
 
 interface CartItem {
   menuItemId: number,
@@ -20,7 +21,8 @@ export class MyCartComponent implements OnInit {
 
   cartItems: { [key: number]: CartItem } = {};
   restaurantName: string = '';
-  address: Address = new Address(); 
+  address: Address = new Address();
+  orderForCreation: OrderForCreation = new OrderForCreation(); 
 
   ngOnInit() {
     this.loadCartItems();
