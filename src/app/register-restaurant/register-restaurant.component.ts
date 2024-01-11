@@ -166,7 +166,8 @@ export class RegisterRestaurantComponent {
         '2': 'testApiKey123',
         '3': 'testApiKey123',
       };
-      apiKeys[this.restaurantId?.toString() as string] = this.apiKey as string;
+      apiKeys[res['restaurantId']] = res['apiKeyValue'];
+      console.log(apiKeys)
       localStorage.setItem('wea5-api-keys', JSON.stringify(apiKeys));
 
     }); 

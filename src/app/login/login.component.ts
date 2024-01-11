@@ -27,11 +27,10 @@ export class LoginComponent {
     });
 
     // store api keys in local storage for each restaurant to simulate user login
-    const apiKeys: { [key: string]: string } = {
-      '1': 'testApiKey123',
-      '2': 'testApiKey123',
-      '3': 'testApiKey123'
-    };
+    const apiKeys = JSON.parse(localStorage.getItem('wea5-api-keys') || '{}');
+    apiKeys['1'] = 'testApiKey123';
+    apiKeys['2'] = 'testApiKey123';
+    apiKeys['3'] = 'testApiKey123'; 
     localStorage.setItem('wea5-api-keys', JSON.stringify(apiKeys));
 
   }

@@ -13,6 +13,7 @@ import { MenuItem } from "../shared//menu-item";
 import { PriceCalculation } from "../shared//price-calculation";
 import { PostOrder } from "../shared//post-order";
 import { Order } from "../shared//order";
+import { OrderStatus } from "../shared/order-status";
 
 
 @Injectable({
@@ -143,15 +144,23 @@ export class SnacksService {
                                 {headers: {'Accept': 'application/json', 'X-API-Key': apiKey}}).pipe(catchError(this.errorHandler));
     }
 
-    updateMenuItem(menuItem: MenuItem, restaurantId: string, apiKey: string): Observable<any> {
-        const menuItemToUpdate: MenuItem[] = [];
-        menuItemToUpdate.push(menuItem);
+    updateMenuItems(menuItems: MenuItem[], restaurantId: string, apiKey: string): Observable<any> {
         return this.http.put(`${environment.server}/menuitem/restaurant/${restaurantId}`,
-                              JSON.stringify(menuItemToUpdate),
+                              JSON.stringify(menuItems),
                               {headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'X-API-Key': apiKey}})
                               .pipe(catchError(this.errorHandler));
     }
-
     
+    getAllOrdersForRestaurant(restaurantId: string, apiKey: string): Observable<Order[]> {
+        return this.http.get(`${environment.server}/order/restaurant/${restaurantId}`, 
+                             {headers: {'Accept': 'application/json', 'X-API-KEY': apiKey}}).pipe(map<any, Order[]>(res => res), catchError(this.errorHandler));
+    }
+
+    updateOrderStatus(orderId: number, status: OrderStatus, restaurantId: string, apiKey: string): Observable<any> {
+        return this.http.put(`${environment.server}/order/status/${restaurantId}/${orderId}`, 
+                              JSON.stringify(status),
+                              {headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'X-API-KEY': apiKey}})
+                              .pipe(catchError(this.errorHandler));
+    }
     
 }

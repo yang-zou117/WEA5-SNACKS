@@ -105,34 +105,31 @@ export class EditMenuComponent {
   }
 
 
-  updateItem(menuItem: MenuItem) {
+  updateExistingItems() {
     this.resetSuccessErrorMessages();
 
-    if(menuItem === undefined) {
-      return;
+    // check if all existing items have valid name, price and category
+    for(let item of this.existingItems) {
+      if(!item.menuItemName || !item.price || !item.categoryName) {
+        this.errorMessage = "Please fill all fields for name, price and category.";
+        window.scrollTo(0,0);
+        return;
+      }
     }
     
     // check if all fields are filled
-    if(menuItem.menuItemName && menuItem.price && menuItem.categoryName) {
-      const restaurantId = this.auth.getUsernameFromToken();
-      const apiKeys = JSON.parse(localStorage.getItem('wea5-api-keys') || '{}');
-      const apiKey = apiKeys[restaurantId];
+    const restaurantId = this.auth.getUsernameFromToken();
+    const apiKeys = JSON.parse(localStorage.getItem('wea5-api-keys') || '{}');
+    const apiKey = apiKeys[restaurantId];
 
-      this.snacksService.updateMenuItem(menuItem, restaurantId, apiKey).subscribe(
-        (res) => {
-          this.successMessage = "Menu item has been updated.";
-          this.loadExistingItems();
-          window.scrollTo(0,0);
-        }
-      );
-
-    } else {
-      this.errorMessage = "Please fill all fields for name, price and category.";
-      window.scrollTo(0,0);
-      return;
-    }
+    this.snacksService.updateMenuItems(this.existingItems, restaurantId, apiKey).subscribe(
+      (res) => {
+        this.successMessage = "Menu item has been updated.";
+        this.loadExistingItems();
+        window.scrollTo(0,0);
+      }
+    );
     
-
   }
 
 }

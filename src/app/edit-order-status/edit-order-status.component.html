@@ -1,4 +1,55 @@
 <div class="mt-5 container">
-    <h2>Orders for your restaurant: </h2>
+    <h2 class="mb-5">Orders for your restaurant: </h2>
 
+    <div *ngIf="myOrders.length === 0;">
+        <p class="my-font-size">You have no orders yet!</p>
+    </div>
+
+    <div *ngIf="successMessage !== ''" class="alert alert-success col-md-7 mb-5">
+        <p>{{successMessage}}</p>
+    </div>
+      
+    <div *ngIf="myOrders.length >= 0">
+    <div *ngFor="let order of myOrders" class="card col-md-7 mb-4">
+        <div class="card-body">
+        <h5 class="card-title mb-3">Order Information</h5>
+        <p class="card-text">
+            <span class="fixed-width-label">Order ID:</span>
+            <b>{{ order.orderId }}</b>
+        </p>
+        <p class="card-text">
+            <span class="fixed-width-label">Customer Name:</span>
+            <b>{{ order.customerName }}</b>
+        </p>
+        <p class="card-text">
+            <span class="fixed-width-label">Phone Number:</span>
+            <b>{{ order.phoneNumber }}</b>
+        </p>
+        <p class="card-text">
+            <span class="fixed-width-label">Ordered Date:</span>
+            <b>{{ order.orderedDate | date:'medium' }}</b>
+        </p>
+ 
+        <div class="d-flex mt-3 mb-3 ">
+            <p class="card-text"><span class="fixed-width-label">Status:</span></p>
+            <!-- add a selection to changing order status -->
+            <select class="form-control" [(ngModel)]="order.status" style="max-width: fit-content;">
+                <option value="Pending">Pending</option>
+                <option value="BeingPrepared">BeingPrepared</option>
+                <option value="InDelivery">InDelivery</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+            <span style="margin-left: 8px;"></span>
+            <button class="btn btn-primary ml-3" (click)="updateOrderStatus(order)">Update</button>
+        </div>
+        
+
+        <p class="card-text">
+            <span class="fixed-width-label">Order Costs:</span>
+            <b>{{ order.orderCosts | number: '1.2-2' }} €</b>
+        </p>
+        </div>
+    </div>
+    </div>
 </div>
