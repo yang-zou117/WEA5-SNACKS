@@ -23,7 +23,7 @@ export class AuthenticationService {
     this.oauthService.logOut();
   }
 
-  getUsernameFromToken(): string | null {
+  getUsernameFromToken(): string {
     try {
       const token = this.oauthService.getIdToken();
       const decodedToken: any = jwtDecode(token);
@@ -32,7 +32,7 @@ export class AuthenticationService {
       // Replace 'preferred_username' with the correct claim name where the username is stored in your token
     } catch (error) {
       console.error('Error decoding token:', error);
-      return null;
+      return 'null';
     }
   }
 }

@@ -131,6 +131,13 @@ export class SnacksService {
                              {headers: {'Accept': 'application/json'}}).pipe(map<any, Order>(res => res), catchError(this.errorHandler));
     }
 
+    postNewMenuItems(menuItems: MenuItem[], restaurantId: string, apiKey: string): Observable<any> {
+        return this.http.post(`${environment.server}/menuitem/restaurant/${restaurantId}`,
+                               JSON.stringify(menuItems),
+                               {headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'X-API-Key': apiKey}})
+                               .pipe(catchError(this.errorHandler));
+    }
+
     
     
 }

@@ -1,8 +1,95 @@
 <div class="container mt-5">
-    
-    <h2>New Menu Items: </h2>
 
-    <h2 class="mt-5">Existing Menu Items: </h2>
+    <div *ngIf="successMessage !== ''" class="alert alert-success col-md-7 mb-5">
+        <p>{{successMessage}}</p>
+    </div>
+
+    <div *ngIf="errorMessage !== ''" class="alert alert-danger col-md-7 mb-5">
+        <p>{{errorMessage}}</p>
+    </div>
+    
+    <!-- showing section for adding new menu items -->
+    <h2>New Menu Items: &nbsp; &nbsp;
+        <button type="submit" class="btn btn-primary" (click)="saveNewItems()">
+            Save <i class="bi bi-save"></i>
+        </button>
+    </h2>
+
+    <div class="mt-4 col-md-7">
+
+        <table class="table mt-3 mb-5" *ngIf="newItems.length > 0">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col" colspan="2">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of newItems">
+                <td>
+                  <div class="text-truncate">{{ item.menuItemName }}</div>
+                </td>
+                <td colspan="2">
+                  <div class="text-truncate">{{ item.menuItemDescription }}</div>
+                </td>
+                <td>
+                  <div class="text-truncate">{{ item.price }}</div>
+                </td>
+                <td>
+                  <div class="text-truncate">{{ item.categoryName }}</div>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+
+        <hr class="border border-primary border-1 opacity-10 mt-3 mb-3">
+
+        <div class="mt-3">
+            <form (ngSubmit)="addNewMenuItem()" #menuItemForm="ngForm">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="menuItemName">Name: *</label>
+                    <input type="text" id="menuItemName" name="menuItemName" [(ngModel)]="newItem.menuItemName" class="form-control" required>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="price">Price: *</label>
+                    <input type="number" id="price" name="price" [(ngModel)]="newItem.price" class="form-control" required>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="categoryName">Category: *</label>
+                    <input type="text" id="categoryName" name="categoryName" [(ngModel)]="newItem.categoryName" class="form-control" required>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="menuItemDescription">Description:</label>
+                    <textarea id="menuItemDescription" name="menuItemDescription" [(ngModel)]="newItem.menuItemDescription" class="form-control"></textarea>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-secondary mt-3" [disabled]="menuItemForm.invalid">Add new item</button>
+              &nbsp; &nbsp; * required
+            </form>
+          </div>
+      
+    </div>
+
+    <!-- showing section for updating existing menu items -->
+    <h2 class="mt-5">Existing Menu Items: &nbsp; &nbsp;    
+        <button type="submit" class="btn btn-primary" >
+        Save <i class="bi bi-save"></i>
+        </button>
+    </h2>
 
 
 </div>
