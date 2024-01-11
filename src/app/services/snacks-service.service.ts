@@ -138,6 +138,20 @@ export class SnacksService {
                                .pipe(catchError(this.errorHandler));
     }
 
+    deleteMenuItem(menuItemId:number, restaurantId: string, apiKey: string): Observable<any> {
+        return this.http.delete(`${environment.server}/menuitem/${restaurantId}/${menuItemId}`, 
+                                {headers: {'Accept': 'application/json', 'X-API-Key': apiKey}}).pipe(catchError(this.errorHandler));
+    }
+
+    updateMenuItem(menuItem: MenuItem, restaurantId: string, apiKey: string): Observable<any> {
+        const menuItemToUpdate: MenuItem[] = [];
+        menuItemToUpdate.push(menuItem);
+        return this.http.put(`${environment.server}/menuitem/restaurant/${restaurantId}`,
+                              JSON.stringify(menuItemToUpdate),
+                              {headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'X-API-Key': apiKey}})
+                              .pipe(catchError(this.errorHandler));
+    }
+
     
     
 }

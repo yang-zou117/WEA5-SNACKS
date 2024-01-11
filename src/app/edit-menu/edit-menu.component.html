@@ -10,7 +10,7 @@
     
     <!-- showing section for adding new menu items -->
     <h2>New Menu Items: &nbsp; &nbsp;
-        <button type="submit" class="btn btn-primary" (click)="saveNewItems()">
+        <button type="submit" class="btn btn-primary" (click)="saveNewItems()" [disabled]="saveNewItemsButtonDisabled">
             Save <i class="bi bi-save"></i>
         </button>
     </h2>
@@ -85,11 +85,52 @@
     </div>
 
     <!-- showing section for updating existing menu items -->
-    <h2 class="mt-5">Existing Menu Items: &nbsp; &nbsp;    
-        <button type="submit" class="btn btn-primary" >
-        Save <i class="bi bi-save"></i>
-        </button>
-    </h2>
+    <h2 class="mt-5">Existing Menu Items:</h2>
+
+    <div class="mt-4 col-md-12">
+        <p *ngIf="existingItems.length === 0">No menu items yet</p>
+
+        <table class="table align-middle" *ngIf="existingItems.length > 0">
+            <thead class=table-primary>
+              <tr>
+                <th scope="col" style="width: 20%;">Name</th>
+                <th scope="col" style="width: 35%;">Description</th>
+                <th scope="col" style="width: 13%;">Price in €</th>
+                <th scope="col" style="width: 15%;">Category</th>
+                <th style="width: auto;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of existingItems">
+                <td>
+                    <input type="text" [(ngModel)]="item.menuItemName" class="form-control">
+                </td>
+                <td>
+                    <input type="text" [(ngModel)]="item.menuItemDescription" class="form-control">
+                </td>
+                <td>
+                    <input type="number" [(ngModel)]="item.price" class="form-control">
+                </td>
+
+                <td>
+                  <input type="text" [(ngModel)]="item.categoryName" class="form-control">
+                </td>
+
+                <td class="d-flex justify-content-end">
+                  <button class="btn btn-primary" (click)="updateItem(item)">
+                    Save &nbsp;<i class="bi bi-save"></i>
+                  </button>
+                  &nbsp; &nbsp;
+                  <button class="btn btn-danger" (click)="deleteItem(item.menuItemId)">
+                    Delete &nbsp;<i class="bi bi-trash"></i>
+                  </button>
+                </td>
+                
+              </tr>
+            </tbody>
+        </table>
+
+    </div>
 
 
 </div>
