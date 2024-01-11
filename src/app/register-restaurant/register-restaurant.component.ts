@@ -154,19 +154,18 @@ export class RegisterRestaurantComponent {
       this.openingHours, this.closingDays).subscribe(
       res => {
 
-      this.apiKey = res['apiKeyValue'];
-      this.restaurantId = res['restaurantId'];
-      this.scrollToTop();
-      this.resetData();
-      this.isButtonDisabled = false;
-
-      // save api key in local storage for new registered restaurant
-      if(res['restaurantId'] && res['apiKeyValue']) {
-        const apiKeys = JSON.parse(localStorage.getItem('wea5-api-keys') || '{}');
-        apiKeys[res['restaurantId']] = res['apiKeyValue'];
-        localStorage.setItem('wea5-api-keys', JSON.stringify(apiKeys));
-      }
-
+        this.scrollToTop();
+        this.resetData();
+        this.isButtonDisabled = false;
+        
+        // save api key in local storage for new registered restaurant
+        if(res['restaurantId'] && res['apiKeyValue']) {
+          this.apiKey = res['apiKeyValue'];
+          this.restaurantId = res['restaurantId'];
+          const apiKeys = JSON.parse(localStorage.getItem('wea5-api-keys') || '{}');
+          apiKeys[res['restaurantId']] = res['apiKeyValue'];
+          localStorage.setItem('wea5-api-keys', JSON.stringify(apiKeys));
+        }
     }); 
 
   }
