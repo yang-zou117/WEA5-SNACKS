@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SnacksService } from '../services/snacks-service.service';
+import { Order } from '../shared/order';
 
 @Component({
   selector: 'wea5-edit-order-status',
@@ -7,5 +9,9 @@ import { Component } from '@angular/core';
   ]
 })
 export class EditOrderStatusComponent {
+
+  myOrders: Order[] = []
+
+  constructor(private snacksService: SnacksService) { }
 
 }

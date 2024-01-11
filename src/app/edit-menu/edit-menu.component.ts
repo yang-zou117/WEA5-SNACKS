@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SnacksService } from '../services/snacks-service.service';
+import { MenuItem } from '../shared/menu-item';
 
 @Component({
   selector: 'wea5-edit-menu',
@@ -7,5 +9,10 @@ import { Component } from '@angular/core';
   ]
 })
 export class EditMenuComponent {
+
+  existingItems: MenuItem[] = []
+  newItems: MenuItem[] = []
+
+  constructor(private snacksService: SnacksService) { }
 
 }
