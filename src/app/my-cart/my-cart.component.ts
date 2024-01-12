@@ -131,10 +131,10 @@ export class MyCartComponent implements OnInit {
     if (this.address.street && 
         this.address.city && 
         this.address.zipcode && 
-        this.address.gpsLatitude && 
+        this.address.gpsLatitude !== undefined && 
         this.address.streetNumber &&
         this.address.gpsLatitude <= 90 && this.address.gpsLatitude >= -90 &&
-        this.address.gpsLongitude
+        this.address.gpsLongitude !== undefined
         && this.address.gpsLongitude <= 180 && this.address.gpsLongitude >= -180) {
       return true;
     } else {

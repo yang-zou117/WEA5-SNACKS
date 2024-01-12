@@ -102,7 +102,7 @@
         <span style="margin-left: 8px;"></span>
         <button (click)="calculateTotalPrice()"> Calculate Total Price</button>
 
-        <h4 *ngIf="totalPrice >= 0" class="mt-5">Total Price for your Order: &nbsp; <b>{{totalPrice | number: '1.2-2'}} € </b></h4>
+        <h4 *ngIf="totalPrice >= 0" class="mt-5">Total price incl. delivery fee: &nbsp; <b>{{totalPrice | number: '1.2-2'}} € </b></h4>
  
           
       </div>

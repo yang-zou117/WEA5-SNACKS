@@ -12,7 +12,7 @@ import { DataSharingService } from '../shared/data-sharing-service';
 export class HomeComponent {
 
   // paramters for querying restaurants in proximity
-  maxDistance: number = 10000; 
+  maxDistance: number = 10; 
   latitude: number = 0;
   longitude: number = 0;
   shouldBeOpen: boolean = false;
