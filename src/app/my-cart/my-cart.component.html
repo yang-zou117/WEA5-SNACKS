@@ -41,6 +41,10 @@
       <!-- show information for user, address, phone number etc. -->
       <h4 class="mb-4 mt-5">Delivery Address: </h4>
 
+      <div *ngIf="deliveryAddressInvalid" class="alert alert-danger col-md-5 mb-3 mt-3">
+        <p>Please fill all fields of the delivery address</p>
+      </div>
+
       <div class="col-md-7">
         <div class="mb-4 row">
           <div class="col">

@@ -110,6 +110,15 @@
     <!-- menu -->
     <div class="mt-3">
       <h4>Menu: </h4>
+
+      <div *ngIf="itemAddedSuccessfully" class="alert alert-success col-md-5 mb-3 mt-3">
+        <p>Item added successfully!</p>
+      </div>
+
+      <div *ngIf="tryingOrderFromDifferentRes" class="alert alert-danger col-md-5 mb-3 mt-3">
+        <p>You cannot order items from different restaurants at the same time</p>
+      </div>
+
       <table class="table align-middle">
         <thead class=table-primary>
           <tr>

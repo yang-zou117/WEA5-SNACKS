@@ -31,6 +31,9 @@ export class MyCartComponent implements OnInit {
   totalPrice: number = -1; 
   disableOrderButton: boolean = false;
 
+  // flag check if all input fields are filled in
+  deliveryAddressInvalid: boolean = false;
+
   ngOnInit() {
     this.loadCartItems();
   }
@@ -140,8 +143,9 @@ export class MyCartComponent implements OnInit {
   }
 
   calculateTotalPrice() {
+    this.deliveryAddressInvalid = false;
     if(!this.checkAddressValidity()) {
-      alert('Address is invalid');
+      this.deliveryAddressInvalid = true;
       return;
     }
 
@@ -161,8 +165,9 @@ export class MyCartComponent implements OnInit {
   }
 
   placeOrder() {
+    this.deliveryAddressInvalid = false;
     if(!this.checkAddressValidity()) {
-      alert('Address is invalid');
+      this.deliveryAddressInvalid = true;
       return;
     }
 
@@ -207,7 +212,7 @@ export class MyCartComponent implements OnInit {
 
       
     } else {
-      alert('Please enter your name and phone number');
+      this.deliveryAddressInvalid = true;
     }
 
   }

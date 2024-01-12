@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, SimpleChanges, ViewChild } from '@angular/core';
 import { RestaurantSearchResult } from '../shared/restaurant-search-result';
 import { DataSharingService } from '../shared/data-sharing-service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -8,6 +8,7 @@ import { SnacksService } from '../services/snacks-service.service';
 import { DeliveryCondition } from '../shared/delivery-condition';
 import { MenuItem } from '../shared/menu-item';
 import { Location } from '@angular/common';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'wea5-search-results',
@@ -29,11 +30,14 @@ export class SearchResultsComponent {
   deliveryConditions: DeliveryCondition[] = [];
   menuItems: MenuItem[] = [];
   
+  itemAddedSuccessfully: boolean = false;
+  tryingOrderFromDifferentRes: boolean = false;
 
   constructor(private dataSharingService: DataSharingService, 
               private sanitizer: DomSanitizer,
               private snacksService: SnacksService, 
-              private location: Location) {}
+              private location: Location, 
+              private router: Router) {}
   
   ngOnInit(): void {
     this.restaurants = this.dataSharingService.getSearchResults();
@@ -47,6 +51,11 @@ export class SearchResultsComponent {
     });
   }
 
+  resetFlags() {
+    this.itemAddedSuccessfully = false;
+    this.tryingOrderFromDifferentRes = false;
+  }
+
   imageUrl(fileName: string | undefined) {
     if(fileName == undefined || fileName.trim().length == 0) {
       return '';
@@ -56,6 +65,7 @@ export class SearchResultsComponent {
   }
 
   showDetails(restaurantId: number) {
+    this.resetFlags();
     this.selectedRestaurantId = restaurantId;
     this.snacksService.getDeliveryConditions(restaurantId).subscribe(
       data => {
@@ -86,6 +96,7 @@ export class SearchResultsComponent {
 
 
   backToSearchResults() {
+    this.resetFlags();
     this.selectedRestaurantId = -1;
     this.deliveryConditions = [];
     this.menuItems = [];
@@ -112,7 +123,7 @@ export class SearchResultsComponent {
       // check if there is already an item in the cart and if it is from the same restaurant
       if(existingCart.hasOwnProperty('restaurantId')) {
         if(existingCart.restaurantId !== restaurantId) {
-          alert('You cannot order from different restaurants at the same time.');
+          this.tryingOrderFromDifferentRes = true;
           return;
         }
       }
@@ -141,7 +152,7 @@ export class SearchResultsComponent {
       }
 
       localStorage.setItem('wea5-cart', JSON.stringify(existingCart));
-      alert('Item added to cart successfully.');
+      this.itemAddedSuccessfully = true;
     }
 
   }
