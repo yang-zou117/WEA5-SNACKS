@@ -105,7 +105,7 @@ export class SearchResultsComponent {
       return;
     }
 
-    const confirmation = window.confirm(`Do you want to ddd item ${menuItemName} to cart with amount: ${numericAmount} ?`);
+    const confirmation = window.confirm(`Do you want to add item ${menuItemName} to cart with amount: ${numericAmount} ?`);
     if(confirmation) {
       const existingCart = JSON.parse(localStorage.getItem('wea5-cart') || '{}');
 
