@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, map, of, retry } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RestaurantForCreation } from "../shared/restaurant-for-creation";
@@ -29,14 +29,14 @@ export class SnacksService {
         return of(null);
     } 
 
-    private priceCalculationErrorHandler(error: Error | any): Observable<any> {
-        alert("An error occured: It might be that the restaurant has no suitable delivery conditions for your address. Please try again later.");
-        console.log(error);
-        return of(null);
-    }
-
-    private orderCreationErrorHandler(error: Error | any): Observable<any> {
-        alert("An error occured during the order process: It might be that the restaurant has no suitable delivery conditions for your address. Please try again later.");
+    private noSuitableDeliveryConditionsErrorHandler(error: Error | any): Observable<any> {
+        if(error instanceof HttpErrorResponse){
+            if (error.status === 400) {
+                alert("Error: It might be that the restaurant has no suitable delivery conditions for your address. Please try again later.");
+            } else {
+                alert("An error occured during the order process. Please try again later.");
+            }
+        }
         console.log(error);
         return of(null);
     }
@@ -118,13 +118,13 @@ export class SnacksService {
     calculateTotalPrice(priceCalculationObject: PriceCalculation): Observable<number>{
         return this.http.post(`${environment.server}/order/calculatePrice`,
                             JSON.stringify(priceCalculationObject),
-                            {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}}).pipe(map<any, number>(res => res), catchError(this.priceCalculationErrorHandler));
+                            {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}}).pipe(map<any, number>(res => res), catchError(this.noSuitableDeliveryConditionsErrorHandler));
     }
 
     postOrder(postOrderObject: PostOrder): Observable<any> {
         return this.http.post(`${environment.server}/order/placeOrder`,
                             JSON.stringify(postOrderObject),
-                            {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}}).pipe(map<any, any>(res => res), catchError(this.orderCreationErrorHandler));
+                            {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}}).pipe(map<any, any>(res => res), catchError(this.noSuitableDeliveryConditionsErrorHandler));
     }
     
     getOrderForId(orderId: number): Observable<Order> {
