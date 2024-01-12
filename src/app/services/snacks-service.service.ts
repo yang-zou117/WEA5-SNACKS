@@ -29,13 +29,13 @@ export class SnacksService {
         return of(null);
     } 
 
-    private priceNotCalculatedHandler(error: Error | any): Observable<any> {
+    private priceCalculationErrorHandler(error: Error | any): Observable<any> {
         alert("An error occured: It might be that the restaurant has no suitable delivery conditions for your address. Please try again later.");
         console.log(error);
         return of(null);
     }
 
-    private orderNotCreatedHandler(error: Error | any): Observable<any> {
+    private orderCreationErrorHandler(error: Error | any): Observable<any> {
         alert("An error occured during the order process: It might be that the restaurant has no suitable delivery conditions for your address. Please try again later.");
         console.log(error);
         return of(null);
@@ -118,13 +118,13 @@ export class SnacksService {
     calculateTotalPrice(priceCalculationObject: PriceCalculation): Observable<number>{
         return this.http.post(`${environment.server}/order/calculatePrice`,
                             JSON.stringify(priceCalculationObject),
-                            {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}}).pipe(map<any, number>(res => res), catchError(this.priceNotCalculatedHandler));
+                            {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}}).pipe(map<any, number>(res => res), catchError(this.priceCalculationErrorHandler));
     }
 
     postOrder(postOrderObject: PostOrder): Observable<any> {
         return this.http.post(`${environment.server}/order/placeOrder`,
                             JSON.stringify(postOrderObject),
-                            {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}}).pipe(map<any, any>(res => res), catchError(this.orderNotCreatedHandler));
+                            {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}}).pipe(map<any, any>(res => res), catchError(this.orderCreationErrorHandler));
     }
     
     getOrderForId(orderId: number): Observable<Order> {
