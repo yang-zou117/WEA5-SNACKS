@@ -6,6 +6,7 @@ import { OrderedItem } from '../shared/ordered-item';
 import { PriceCalculation } from '../shared/price-calculation';
 import { PostOrder } from '../shared/post-order';
 import { Router } from '@angular/router';
+import { DeliveryCondition } from '../shared/delivery-condition';
 
 interface CartItem {
   menuItemId: number,
@@ -23,16 +24,19 @@ interface CartItem {
 })
 export class MyCartComponent implements OnInit {
 
+  // information of the order to be placed
   cartItems: { [key: number]: CartItem } = {};
   restaurantId: number = -1;
   restaurantName: string = '';
   address: Address = new Address();
   orderForCreation: OrderForCreation = new OrderForCreation(); 
   totalPrice: number = -1; 
-  disableOrderButton: boolean = false;
-
+  
   // flag check if all input fields are filled in
   deliveryAddressInvalid: boolean = false;
+  disableOrderButton: boolean = false;
+
+  deliveryConditions: DeliveryCondition[] = [];
 
   ngOnInit() {
     this.loadCartItems();
@@ -47,6 +51,12 @@ export class MyCartComponent implements OnInit {
       this.cartItems = cartString.items;
       this.restaurantName = cartString.restaurantName;
       this.restaurantId = cartString.restaurantId;
+
+      // get the delivery conditions
+      this.snacksService.getDeliveryConditions(this.restaurantId).subscribe(
+        (res: DeliveryCondition[]) => {
+        this.deliveryConditions = res;
+      });
     }
   }
 

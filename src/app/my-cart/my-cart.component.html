@@ -1,14 +1,38 @@
 <div class="container mt-5">
-  <h2>My Cart</h2>
+  <h2 class="mb-4">Restaurant: {{ restaurantName }}</h2>
   <div *ngIf="getNumberOfItems() === 0; else showItems" class="mt-5">
     <p class="my-font-size">Your cart is empty!</p>
   </div>
 
   <ng-template #showItems>
     <div *ngIf="getNumberOfItems() > 0" class="mt-5">
-
+      
+      <!-- show delivery conditions of the restaurant -->
+      <div class="mt-3 mb-5" *ngIf="deliveryConditions.length > 0">
+        <h4>Delivery Conditions: </h4>
+        <div class="mt-3" > 
+          <ul>
+            <li *ngFor="let entry of deliveryConditions">
+              Min. Order Value: {{ entry.minOrderValue }} €,<br>
+              Distance: {{ entry.distanceLowerThreshold }} - {{ entry.distanceUpperThreshold }} km,<br>
+              <span *ngIf="entry.orderValueLowerThreshold !== null && entry.orderValueUpperThreshold !== null">
+                Order Value: {{ entry.orderValueLowerThreshold }} - {{ entry.orderValueUpperThreshold }} €,<br>
+              </span>
+              <span *ngIf="entry.orderValueUpperThreshold === null">
+                Order Value: from {{ entry.orderValueLowerThreshold }} €,<br>
+              </span>
+              Delivery Fee: <b>{{ entry.deliveryCosts }}</b> €
+            </li>
+          </ul>              
+        </div> 
+      </div>
+      
+      <div *ngIf="deliveryConditions.length === 0" class="alert alert-danger col-md-5 mb-3 mt-3">
+        <p>There are no delivery conditions for this restaurant available now, please choose another restaurant.</p>
+      </div>
+      
       <!-- showing items of the cart -->
-      <h3 class="mb-4">Restaurant: {{ restaurantName }}</h3>
+      <h4 class="mb-3 mt-3">Ordered items: </h4>
       <div class="card col-lg-12">
         <ul class="list-group list-group-flush">
           <li *ngFor="let item of getItems()" class="list-group-item">
