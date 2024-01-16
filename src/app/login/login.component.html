@@ -4,7 +4,7 @@
       <h2>Log-in to your account</h2>
       <form class="ui large form" _lpchecked="1"
       #loginForm="ngForm"
-      (ngSubmit)="submitForm()">
+      (ngSubmit)="startLogin()">
       <div class="ui stacked segment mt-5 col-md-2">
         <button class="ui fluid large red submit button" [disabled]="loginForm.invalid">
           Login &nbsp; <i class="bi bi-person-lock"></i>

@@ -10,11 +10,6 @@ import { AuthenticationService } from '../services/authentication-service.servic
 })
 export class LoginComponent {
 
-  login: any = {
-    username: '',
-    password: ''
-  }
-
   private returnTo: string = '';
 
   constructor(private auth: AuthenticationService, 
@@ -35,9 +30,9 @@ export class LoginComponent {
 
   }
 
-  submitForm() {
+  startLogin() {
 
-    if (this.auth.login(this.login.username, this.login.password)) {
+    if (this.auth.login()) {
       this.router.navigateByUrl(this.returnTo);
     } else {
       alert('Login failed!');

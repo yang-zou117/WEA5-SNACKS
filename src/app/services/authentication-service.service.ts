@@ -9,7 +9,7 @@ export class AuthenticationService {
 
   constructor(private oauthService: OAuthService) { } 
 
-  login(username: string, password: string): boolean { 
+  login(): boolean { 
     this.oauthService.initCodeFlow(); 
     return true; 
   } 
