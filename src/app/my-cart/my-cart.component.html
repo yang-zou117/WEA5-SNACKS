@@ -1,11 +1,15 @@
 <div class="container mt-5">
-  <h2 class="mb-4">Restaurant: {{ restaurantName }}</h2>
   <div *ngIf="getNumberOfItems() === 0; else showItems" class="mt-5">
     <p class="my-font-size">Your cart is empty!</p>
   </div>
-
+  
   <ng-template #showItems>
     <div *ngIf="getNumberOfItems() > 0" class="mt-5">
+      <h2 class="mb-4">Restaurant: {{ restaurantName }} </h2>
+
+      <div *ngIf="!hasRestaurantOpen()" class="alert alert-danger col-md-5 mb-3 mt-3">
+        <p>The restaurant is currently closed, please choose another restaurant.</p>
+      </div>
       
       <!-- show delivery conditions of the restaurant -->
       <div class="mt-3 mb-5" *ngIf="deliveryConditions.length > 0">
@@ -32,7 +36,7 @@
       </div>
       
       <!-- showing items of the cart -->
-      <h4 class="mb-3 mt-3">Ordered items: </h4>
+      <h4 class="mb-3 mt-3">Ordered Items: </h4>
       <div class="card col-lg-12">
         <ul class="list-group list-group-flush">
           <li *ngFor="let item of getItems()" class="list-group-item">
@@ -132,7 +136,7 @@
       </div>
       
 
-      <button class="btn btn-primary btn-lg mt-5" (click)="placeOrder()" [disabled]="disableOrderButton">
+      <button class="btn btn-primary btn-lg mt-5" (click)="placeOrder()" [disabled]="disableOrderButton || !hasRestaurantOpen()">
         Place Order <i class="bi bi-bag"></i>
       </button>
     </div>

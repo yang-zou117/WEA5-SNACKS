@@ -181,7 +181,7 @@ export class SearchResultsComponent {
     const currentDate = new Date();
     const currentDay = daysOfWeek[currentDate.getDay()];
     const currentTime = this.getCurrentTime();
-    console.log(currentDay);
+
     const currentDayOpeningHours = openingHours.filter(oh => oh.weekDay === currentDay);
     if(currentDayOpeningHours.length === 0) {
       return false;
@@ -190,9 +190,6 @@ export class SearchResultsComponent {
     for (const key in currentDayOpeningHours) {
       const startTime = currentDayOpeningHours[key].startTime;
       const endTime = currentDayOpeningHours[key].endTime;
-
-      console.log(startTime);
-      console.log(endTime);
       if(startTime === undefined || endTime === undefined) {
         return false;
       }

@@ -7,6 +7,7 @@ import { PriceCalculation } from '../shared/price-calculation';
 import { PostOrder } from '../shared/post-order';
 import { Router } from '@angular/router';
 import { DeliveryCondition } from '../shared/delivery-condition';
+import { RestaurantDetails } from '../shared/restaurant-details';
 
 interface CartItem {
   menuItemId: number,
@@ -37,6 +38,7 @@ export class MyCartComponent implements OnInit {
   disableOrderButton: boolean = false;
 
   deliveryConditions: DeliveryCondition[] = [];
+  restaurantDetails: RestaurantDetails | undefined; 
 
   ngOnInit() {
     this.loadCartItems();
@@ -56,6 +58,12 @@ export class MyCartComponent implements OnInit {
       this.snacksService.getDeliveryConditions(this.restaurantId).subscribe(
         (res: DeliveryCondition[]) => {
         this.deliveryConditions = res;
+      });
+
+      // get the restaurant details (opening hours)
+      this.snacksService.getRestaurantDetails(this.restaurantId).subscribe(
+        (res: RestaurantDetails) => {
+        this.restaurantDetails = res;
       });
     }
   }
@@ -109,6 +117,10 @@ export class MyCartComponent implements OnInit {
       this.cartItems[item.menuItemId].amount--;
     }
     this.saveCartItems();
+
+    if(this.getNumberOfItems() === 0) {
+      this.clearCart();
+    }
 
     // if there is an address, recalculate the total price
     if(this.checkAddressValidity()) {
@@ -224,6 +236,47 @@ export class MyCartComponent implements OnInit {
     } else {
       this.deliveryAddressInvalid = true;
     }
+
+  }
+
+  getCurrentTime(): string {
+    const currentDate = new Date();
+    const currentHour = String(currentDate.getHours()).padStart(2, '0');
+    const currentMinutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const currentSeconds = String(currentDate.getSeconds()).padStart(2, '0');
+    return `${currentHour}:${currentMinutes}:${currentSeconds}`;
+  }
+
+  hasRestaurantOpen():boolean {
+    if(this.restaurantDetails === undefined || this.restaurantId <= 0) {
+      return false;
+    }
+
+    // get the current day and time
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const currentDate = new Date();
+    const currentDay = daysOfWeek[currentDate.getDay()];
+    const currentTime = this.getCurrentTime();
+   
+    // check if the restaurant has opening hours for the current day
+    const openingHours = this.restaurantDetails.openingHours;
+    const currentDayOpeningHours = openingHours.filter(oh => oh.weekDay === currentDay);
+    if(currentDayOpeningHours.length === 0) {
+      return false;
+    }
+
+    for (const key in currentDayOpeningHours) {
+      const startTime = currentDayOpeningHours[key].startTime;
+      const endTime = currentDayOpeningHours[key].endTime;
+
+      if(startTime === undefined || endTime === undefined) {
+        return false;
+      }
+      if(startTime <= currentTime && endTime >= currentTime) {
+        return true;
+      }
+    }
+    return false;
 
   }
 
