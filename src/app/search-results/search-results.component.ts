@@ -156,6 +156,52 @@ export class SearchResultsComponent {
     }
 
   }
+
+  getCurrentTime(): string {
+    const currentDate = new Date();
+    const currentHour = String(currentDate.getHours()).padStart(2, '0');
+    const currentMinutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const currentSeconds = String(currentDate.getSeconds()).padStart(2, '0');
+    return `${currentHour}:${currentMinutes}:${currentSeconds}`;
+  }
+
+  hasRestaurantOpen(restaurantId: number| undefined): boolean {
+    if(restaurantId === undefined) {
+      return false;
+    }
+
+    // get the opening hours for the current day
+    const openingHours = this.restaurantDetails[restaurantId]?.openingHours;
+    if(openingHours === undefined) {
+      return false;
+    }
+
+    // check if the restaurant is open
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const currentDate = new Date();
+    const currentDay = daysOfWeek[currentDate.getDay()];
+    const currentTime = this.getCurrentTime();
+    console.log(currentDay);
+    const currentDayOpeningHours = openingHours.filter(oh => oh.weekDay === currentDay);
+    if(currentDayOpeningHours.length === 0) {
+      return false;
+    }
+
+    for (const key in currentDayOpeningHours) {
+      const startTime = currentDayOpeningHours[key].startTime;
+      const endTime = currentDayOpeningHours[key].endTime;
+
+      console.log(startTime);
+      console.log(endTime);
+      if(startTime === undefined || endTime === undefined) {
+        return false;
+      }
+      if(startTime <= currentTime && endTime >= currentTime) {
+        return true;
+      }
+    }
+    return false;
+  }
   
 
 }
