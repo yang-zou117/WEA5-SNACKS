@@ -1,7 +1,7 @@
 # SNACKS
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.8.
-This is the frontend project for [SNACKS_BACKEND(https://github.com/yang-zou117/SWK5_SNACKS.git)]. 
+This is the frontend project for [SNACKS_BACKEND](https://github.com/yang-zou117/SWK5_SNACKS.git). 
 Developed as part of the Software Engineering program at the University of Applied Sciences Upper Austria.
 
 ## Development server
